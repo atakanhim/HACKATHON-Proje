@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="galeriModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Car_Tablo">
+    <Key>
+      <PropertyRef Name="CarId" />
+    </Key>
+    <Property Name="CarId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CarMarkaKod" Type="int" />
+    <Property Name="CarModelKod" Type="int" />
+    <Property Name="CarFiyat" Type="money" />
+    <Property Name="CarPhoto" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="Marka_Tablo">
+    <Key>
+      <PropertyRef Name="MarkaKod" />
+    </Key>
+    <Property Name="MarkaKod" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MarkaName" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Model_Table">
+    <Key>
+      <PropertyRef Name="ModelKod" />
+    </Key>
+    <Property Name="ModelKod" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MarkaKod" Type="int" />
+    <Property Name="ModelName" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Roles_Tablo">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleName" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="UserRoleMapping">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="RoleId" Type="int" />
+  </EntityType>
+  <EntityType Name="Users_Tablo">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="varchar" MaxLength="50" />
+    <Property Name="UserPassword" Type="varchar" MaxLength="50" />
+    <Property Name="UserEmail" Type="varchar" MaxLength="50" />
+    <Property Name="UserAdres" Type="varchar" MaxLength="50" />
+    <Property Name="UserRoleId" Type="int" />
+  </EntityType>
+  <Association Name="FK_Car_Tablo_Marka_Tablo1">
+    <End Role="Marka_Tablo" Type="Self.Marka_Tablo" Multiplicity="0..1" />
+    <End Role="Car_Tablo" Type="Self.Car_Tablo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Marka_Tablo">
+        <PropertyRef Name="MarkaKod" />
+      </Principal>
+      <Dependent Role="Car_Tablo">
+        <PropertyRef Name="CarMarkaKod" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Car_Tablo_Model_Table">
+    <End Role="Model_Table" Type="Self.Model_Table" Multiplicity="0..1" />
+    <End Role="Car_Tablo" Type="Self.Car_Tablo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Model_Table">
+        <PropertyRef Name="ModelKod" />
+      </Principal>
+      <Dependent Role="Car_Tablo">
+        <PropertyRef Name="CarModelKod" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Model_Table_Marka_Tablo">
+    <End Role="Marka_Tablo" Type="Self.Marka_Tablo" Multiplicity="0..1" />
+    <End Role="Model_Table" Type="Self.Model_Table" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Marka_Tablo">
+        <PropertyRef Name="MarkaKod" />
+      </Principal>
+      <Dependent Role="Model_Table">
+        <PropertyRef Name="MarkaKod" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserRoleMapping_Roles_Tablo">
+    <End Role="Roles_Tablo" Type="Self.Roles_Tablo" Multiplicity="0..1" />
+    <End Role="UserRoleMapping" Type="Self.UserRoleMapping" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles_Tablo">
+        <PropertyRef Name="RoleId" />
+      </Principal>
+      <Dependent Role="UserRoleMapping">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserRoleMapping_Users_Tablo">
+    <End Role="Users_Tablo" Type="Self.Users_Tablo" Multiplicity="0..1" />
+    <End Role="UserRoleMapping" Type="Self.UserRoleMapping" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users_Tablo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="UserRoleMapping">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserRoleMapping_Users_Tablo1">
+    <End Role="Users_Tablo" Type="Self.Users_Tablo" Multiplicity="0..1" />
+    <End Role="UserRoleMapping" Type="Self.UserRoleMapping" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users_Tablo">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="UserRoleMapping">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="galeriModelStoreContainer">
+    <EntitySet Name="Car_Tablo" EntityType="Self.Car_Tablo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Marka_Tablo" EntityType="Self.Marka_Tablo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Model_Table" EntityType="Self.Model_Table" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Roles_Tablo" EntityType="Self.Roles_Tablo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserRoleMapping" EntityType="Self.UserRoleMapping" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users_Tablo" EntityType="Self.Users_Tablo" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Car_Tablo_Marka_Tablo1" Association="Self.FK_Car_Tablo_Marka_Tablo1">
+      <End Role="Marka_Tablo" EntitySet="Marka_Tablo" />
+      <End Role="Car_Tablo" EntitySet="Car_Tablo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Car_Tablo_Model_Table" Association="Self.FK_Car_Tablo_Model_Table">
+      <End Role="Model_Table" EntitySet="Model_Table" />
+      <End Role="Car_Tablo" EntitySet="Car_Tablo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Model_Table_Marka_Tablo" Association="Self.FK_Model_Table_Marka_Tablo">
+      <End Role="Marka_Tablo" EntitySet="Marka_Tablo" />
+      <End Role="Model_Table" EntitySet="Model_Table" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRoleMapping_Roles_Tablo" Association="Self.FK_UserRoleMapping_Roles_Tablo">
+      <End Role="Roles_Tablo" EntitySet="Roles_Tablo" />
+      <End Role="UserRoleMapping" EntitySet="UserRoleMapping" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRoleMapping_Users_Tablo" Association="Self.FK_UserRoleMapping_Users_Tablo">
+      <End Role="Users_Tablo" EntitySet="Users_Tablo" />
+      <End Role="UserRoleMapping" EntitySet="UserRoleMapping" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserRoleMapping_Users_Tablo1" Association="Self.FK_UserRoleMapping_Users_Tablo1">
+      <End Role="Users_Tablo" EntitySet="Users_Tablo" />
+      <End Role="UserRoleMapping" EntitySet="UserRoleMapping" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

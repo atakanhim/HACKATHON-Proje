@@ -1,0 +1,18 @@
+﻿.productbox{
+    background-color: green;
+    border: 10px solid red;
+    width: 500px;
+    height: 500px;
+    display: inline-block;
+    margin: 10px;
+    padding: 6px;
+    transition: 0.8s ease-in-out;
+}
+.ya{
+    background-color:red;
+}
+.productbox:hover {
+        transition: 0.8s ease-in-out;
+        transform: scale(1.1);
+
+}

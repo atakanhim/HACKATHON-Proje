@@ -1,0 +1,43 @@
+﻿@model IEnumerable<artiktamam.Models.SatinalmaGecmisi_Table>
+
+@{
+    ViewBag.Title = "Satinalinanlar";
+}
+
+<h2>Satin Alma Gecmisi</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MusteriAdi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ArabaninMarkasi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ArabaninModeli)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ArabaninFiyati)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MusteriAdi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ArabaninMarkasi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ArabaninModeli)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ArabaninFiyati)
+        </td>
+    </tr>
+}
+
+</table>

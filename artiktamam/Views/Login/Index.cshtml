@@ -1,0 +1,114 @@
+﻿@model artiktamam.Models.LoginViewModel
+
+@{
+    ViewBag.Title = "Index";
+    
+}
+@section Styles {
+    <link href="~/Content/Login.css" rel="stylesheet" />
+}
+
+<div class="container">
+    <div class="col-lg-11">
+        <div class="login-reg-panel" style="margin-top:300px">
+            <div class="login-info-box">
+                <h2>Zaten Hesabın Var Mı??</h2>
+                <p>Hemen Giriş Yap</p>
+                <label id="label-register" for="log-reg-show">Giriş Yap</label>
+                <input type="radio" name="active-log-panel" id="log-reg-show" checked="checked">
+            </div>
+
+            <div class="register-info-box">
+                <h2>Hesabın Yok Mu?</h2>
+                <p>Hemen hesap oluştur</p>
+                <label id="label-login" for="log-login-show">Üye Ol</label>
+                <input type="radio" name="active-log-panel" id="log-login-show">
+            </div>
+
+            <div class="white-panel">
+                <div class="login-show" >
+                    <h2>Giriş Yap</h2>
+                    @using (Html.BeginForm("Login", "Login", FormMethod.Post))
+                    {
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>Kullanıcı Adı</td>
+                                    <td>
+                                         @Html.EditorFor(m => m.Login.UserName)
+                                         @Html.ValidationMessageFor(m => m.Login.UserName)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Şifre </td>
+                                    <td>
+                                         @Html.EditorFor(m => m.Login.PassWord)
+                                         @Html.ValidationMessageFor(m => m.Login.PassWord)
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <input type="submit" value="Giriş Yap">
+    
+                    }
+                </div>
+                <div class="register-show">
+                    <h2>Üye Ol</h2>
+                    @using (Html.BeginForm("Register", "Login", FormMethod.Post))
+                    {
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>Kullanıcı Adı </td>
+                                    <td>
+                                        @Html.EditorFor(m => m.Register.UserName)
+                                        @Html.ValidationMessageFor(m => m.Register.UserName)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Şifre </td>
+                                    <td>
+                                        @Html.EditorFor(m => m.Register.PassWord)
+                                        @Html.ValidationMessageFor(m => m.Register.PassWord)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Şifre Tekrar</td>
+                                    <td>
+                                        @Html.EditorFor(m => m.Register.PassWordAgain)
+                                        @Html.ValidationMessageFor(m => m.Register.PassWordAgain)
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <input type="submit" value="Üye Ol">
+                    }
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="col-lg-1">
+
+        <div style="margin-top:100px;width:400px!important">
+            <label class="label-danger">@ViewBag.DuplicateMessage</label>
+        </div>
+        <div style="margin-top:100px;width:400px!important">
+            <label class="label-success">@ViewBag.SuccessMessage</label>
+        </div>
+
+
+    </div>
+
+   
+
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval"),
+    <script src="~/Scripts/Login.js"></script>
+}

@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fakir Galeri</title>
+    @Styles.Render("~/Content/css")
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("styles", required: false)
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+
+                @Html.ActionLink("Fakir Gallery", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+
+            <div class="navbar-collapse collapse" style="float:right">
+                <ul class="nav navbar-nav">
+                    @if (Convert.ToInt32(Session["roleId"]) == 1)
+                    {
+
+                        <li>
+                            @Html.ActionLink("Satın Alınan Arabalar", "Satinalinanlar", "admin")
+                        </li>
+                        <li>
+                            @Html.ActionLink("Edit Users", "Index", "Admin")
+                        </li>
+                    }
+
+                    <li>
+                        @Html.ActionLink("Profile", "Edit", "Profile")
+                    </li>
+                    <li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            @Html.ActionLink("Logout", "Logout", "Login")
+
+                        }
+                        else
+                        {
+
+                            @Html.ActionLink("Login", "Index", "Login")
+                        }
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer class="bg-light text-center text-lg-start footer">
+            <!-- Copyright -->
+            <div class="text-center p-3" style="background-color: #212529;">
+                © 2021 Copyright:
+                <b>FAKIRGALLERY.com</b>
+            </div>
+            <!-- Copyright -->
+        </footer>
+    </div>
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

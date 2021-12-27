@@ -1,0 +1,74 @@
+﻿@model artiktamam.Models.Users_Tablo
+
+@{
+ 
+}
+
+<div class="container" style="text-align:center">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <h1>Profilim</h1>
+        <div class="form-horizontal">
+
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.UserId)
+
+            <div class="form-group">
+
+                <label class="control-label col-md-2"> Kullanıcı Adı</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2"> Şifre </label>
+
+
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.UserPassword, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.UserPassword, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="control-label col-md-2"> E-Mail</label>
+
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.UserEmail, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.UserEmail, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2"> Adres Bilgisi</label>
+
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.UserAdres, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.UserAdres, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+
+                <input style="width:100%" type="submit" value="Save" class="btn btn-success" />
+
+            </div>
+            @if (ViewBag.EditSuccessMessage != null)
+            {
+                <div class="form-group">
+                    <div class="alert alert-success ">@ViewBag.EditSuccessMessage</div>
+                </div>
+            }
+
+
+
+        </div>
+    }
+
+</div>
+

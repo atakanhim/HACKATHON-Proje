@@ -1,0 +1,39 @@
+﻿@model IEnumerable<artiktamam.Models.ShowCars>
+@{
+    ViewBag.Title = "Index";
+
+}
+
+
+@section styles{
+    <link href="~/Content/Cars.css" rel="stylesheet" />
+}
+<div class="row">
+
+
+    @foreach (var item in Model)
+    {
+        <div class="productbox">
+            <img src="@Html.DisplayFor(modelItem => item.CarPhoto)"
+                 height="300"
+                 class="card-img-top"
+                 alt="..." />
+            <div>
+                <h5 class="ya">
+                    @Html.DisplayFor(modelItem => item.MarkaName)-@Html.DisplayFor(modelItem => item.ModelName)
+                </h5>
+                <h5>
+                    @Html.DisplayFor(modelItem => item.CarFiyat)
+                </h5>
+          
+
+                <h1>@Html.ActionLink("Satin Al", "SatinAl", new { id = item.ID })</h1>
+
+            </div>
+
+        </div>
+    }
+
+
+</div>
+
