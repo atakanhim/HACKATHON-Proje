@@ -51,7 +51,11 @@ namespace artiktamam.Database
                 siparisKod = rastgele.Next(0, 100000);
                 if (db.SatinalmaGecmisi_Table.Any(x => x.SiparisKodu == siparisKod))
                 {
-                    okaymi = false; ;
+                    okaymi = true; 
+                }
+                else
+                {
+                    okaymi = false;
                 }
             }
             SatinalmaGecmisi_Table satinalma = new SatinalmaGecmisi_Table()

@@ -1,6 +1,5 @@
-﻿.productbox{
-    background-color: green;
-    border: 10px solid red;
+﻿.productbox {
+    border: 1px solid gray;
     width: 500px;
     height: 500px;
     display: inline-block;
@@ -8,11 +7,8 @@
     padding: 6px;
     transition: 0.8s ease-in-out;
 }
-.ya{
-    background-color:red;
-}
-.productbox:hover {
+
+    .productbox:hover {
         transition: 0.8s ease-in-out;
         transform: scale(1.1);
-
-}
+    }

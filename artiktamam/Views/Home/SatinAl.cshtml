@@ -3,26 +3,32 @@
 @{
 }
 <div class="container" style="text-align:center">
-    <h1>@ViewBag.SatinAlma</h1><br />
-   
-        <h1>@Html.DisplayFor(model => model.MarkaName)</h1><br />
-        <h1>@Html.DisplayFor(model => model.ModelName)</h1><br />
-        <h1>@Html.DisplayFor(model => model.CarFiyat)</h1><br />
-        <img src="@Html.DisplayFor(model => model.CarPhoto)"
-             height="300"
-             class="card-img-top"
-             />
-        <br />
-   
+
+    @if (ViewBag.SatinAlma != null)
+    {
+        <h1 class="alert alert-success">@ViewBag.SatinAlma</h1><br />
+    }
+    <h1>@Html.DisplayFor(model => model.MarkaName)</h1><br />
+    <h1>@Html.DisplayFor(model => model.ModelName)</h1><br />
+    <h1>@Html.DisplayFor(model => model.CarFiyat)</h1><br />
+    <img src="@Html.DisplayFor(model => model.CarPhoto)"
+         height="300"
+         class="card-img-top" />
+    <br />
+
 
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <br />
-            <input type="submit" value="Al" class="btn btn-default" />
-            <br />
+            @if (ViewBag.SatinAlma == null)
+            {
+                <br />
+                <input type="submit" value="Al" class="btn btn-default" />
+                <br />
+            }
+
             <a class="btn btn-default" href="/home/index">Geri Don</a>
         </div>
     }

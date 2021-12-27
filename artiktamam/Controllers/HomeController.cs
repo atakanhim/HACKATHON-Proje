@@ -43,7 +43,7 @@ namespace artiktamam.Controllers
         {      
             ShowCars showCars = db.ShowCars.Find(id);
             dbIslem.addSatinAlmaGecmisine(showCars,User.Identity.Name);
-            ViewBag.SatinAlma = "Ysatin alma basasrli " + User.Identity.Name;
+            ViewBag.SatinAlma = "Satin Alma Başarılı , Sayın " + User.Identity.Name + " Güle Güle Kullanın ";
             return View();
         }
 
