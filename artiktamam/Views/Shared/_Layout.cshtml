@@ -19,8 +19,8 @@
 
             <div class="navbar-collapse collapse" style="float:right">
                 <ul class="nav navbar-nav">
-                    @if (Convert.ToInt32(Session["roleId"]) == 1)
-                    {
+                    @*@if (Convert.ToInt32(Session["roleId"]) == 1)
+                    {*@
 
                         <li>
                             @Html.ActionLink("Satın Alınan Arabalar", "Satinalinanlar", "admin")
@@ -28,7 +28,7 @@
                         <li>
                             @Html.ActionLink("Edit Users", "Index", "Admin")
                         </li>
-                    }
+                    
 
                     <li>
                         @Html.ActionLink("Profile", "Edit", "Profile")

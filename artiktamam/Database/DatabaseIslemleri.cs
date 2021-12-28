@@ -17,7 +17,15 @@ namespace artiktamam.Database
                                 ).FirstOrDefault();
             return selectedUser;
         }
+        public SatinalmaGecmisi_Table getArabaWithId(int id)
+        {
+            var selectedCar = (from car in db.SatinalmaGecmisi_Table
+                                where car.Id == id
+                               select car
+                                  ).FirstOrDefault();
+            return selectedCar;
 
+        }
         public Boolean Register(Register register)//register objesinden aldıgımız degeri users a ekliyoruz
         {
             Users_Tablo usertablo = new Users_Tablo()

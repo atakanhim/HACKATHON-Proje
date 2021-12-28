@@ -8,24 +8,65 @@ using System.Web;
 using System.Web.Mvc;
 using artiktamam.Database;
 using artiktamam.Models;
+using artiktamam.BlockChainn;
 
 namespace artiktamam.Controllers
 {
 
-    [Authorize(Roles ="admin")]
+  //  [Authorize(Roles ="admin")]
     public class AdminController : Controller
     {
         private galeriEntities7 db = new galeriEntities7();
         private DatabaseIslemleri dbIslem = new DatabaseIslemleri();
         // GET: admin
-        public ActionResult Index()
+        
+        public ActionResult Index()         
         {
             return View(db.Users_Tablo.ToList());
         }
 
         public ActionResult Satinalinanlar()
         {
-            return View(db.SatinalmaGecmisi_Table.ToList());
+            bool ilkListeleme = true;
+            BlockChain blockChain = new BlockChain(new Block()
+            {
+                Data = new List<SatinalmaGecmisi_Table>(),
+                Hash = "00000000000000000000000000000000000000000000000000000000",
+                Nonce = 1,
+                PrevHash = "00000000000000000000000000000000000000000000000000000",
+                TimeStamp = DateTime.UtcNow,
+                changed = false
+            }); 
+       
+            for (int i = 0; i < db.SatinalmaGecmisi_Table.Count(); i++)
+            {
+                var Araba = dbIslem.getArabaWithId(i + 1);//araba bilgilerini sıra ile alıyoruz
+
+
+                    List<SatinalmaGecmisi_Table> SatinAlmaGecmisi = new List<SatinalmaGecmisi_Table>();
+                SatinAlmaGecmisi.Add(new SatinalmaGecmisi_Table()
+                {
+                    MusteriAdi = Araba.MusteriAdi,
+                    ArabaninMarkasi = Araba.ArabaninMarkasi,
+                    ArabaninModeli =Araba.ArabaninModeli,
+                    SiparisKodu = Araba.SiparisKodu,
+                    SatinAlmaZamani = Araba.SatinAlmaZamani,
+                    ArabaninFiyati = Araba.ArabaninFiyati 
+                }); 
+                    Block b = new Block()
+                    {
+                        Data = SatinAlmaGecmisi,
+                        TimeStamp = DateTime.UtcNow,
+                        changed = false
+                    };
+
+                    blockChain.Mine(b);
+                      
+            }
+            SatinalinanlisteleViewModel model = new SatinalinanlisteleViewModel();
+            model.block = blockChain.Chain;
+
+            return View(model);
         }
 
         // GET: admin/Delete/5

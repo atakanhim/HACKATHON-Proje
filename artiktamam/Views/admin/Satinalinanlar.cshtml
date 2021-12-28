@@ -1,50 +1,103 @@
-﻿@model IEnumerable<artiktamam.Models.SatinalmaGecmisi_Table>
+﻿@model artiktamam.Models.SatinalinanlisteleViewModel
 
 @{
-    ViewBag.Title = "Satinalinanlar";
+
 }
 <div>
-    <h2 style="text-align:center">Satin Alma Gecmisi</h2>
+
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <td> Musteri_Adi </td>
+                <td> Arabanin_Markasi </td>
+                <td> Arabanin_Modeli </td>
+                <td> Arabanin_Fiyati </td>
+                <td> Siparis_Kodu </td>
+                <td> Satin_Alma_Zamani </td>
+                <td> Prev_Hash </td>
+                <td> Hash </td>
+            </tr>
+
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model.block)
+            {
+                if (item.Hash == "00000000000000000000000000000000000000000000000000000000")
+                {
+                    if (item.changed == false)
+                    {
+                        <tr style="background-color:red">
+                        </tr>
+                    }
+
+                    <tr style="background-color:red">
+
+
+                        @foreach (var item2 in item.Data)
+                        {
+
+                            <td> @item2.MusteriAdi </td>
+                            <td> @item2.ArabaninMarkasi </td>
+                            <td> @item2.ArabaninModeli </td>
+                            <td> @item2.ArabaninFiyati </td>
+                            <td> @item2.SiparisKodu </td>
+                            <td> @item2.SatinAlmaZamani </td>
+                        }
+                        <td> @item.PrevHash </td>
+                        <td> @item.Hash </td>
+                    </tr>
+                }
+            }
+
+        </tbody>
+
+
+
+
+    </table>
 </div>
 
 
-<table class="table">
+@*<table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MusteriAdi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArabaninMarkasi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArabaninModeli)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ArabaninFiyati)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SatinAlmaZamani)
+            </th>
+        </tr>
+
+    @foreach (var item in Model) {
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.MusteriAdi)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ArabaninMarkasi)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ArabaninModeli)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ArabaninFiyati)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SatinAlmaZamani)
-        </th>
+        <td>
+            @Html.DisplayFor(modelItem => item.MusteriAdi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ArabaninMarkasi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ArabaninModeli)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ArabaninFiyati)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SatinAlmaZamani)
+        </td>
     </tr>
+    }
 
-@foreach (var item in Model) {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.MusteriAdi)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.ArabaninMarkasi)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.ArabaninModeli)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.ArabaninFiyati)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.SatinAlmaZamani)
-    </td>
-</tr>
-}
-
-</table>
+    </table>*@
