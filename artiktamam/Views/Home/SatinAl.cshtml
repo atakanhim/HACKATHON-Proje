@@ -2,37 +2,112 @@
 
 @{
 }
-<div class="container" style="text-align:center">
+<link href="~/Content/Cars.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900"
+      rel="stylesheet" />
+<div class="row">
+    @if (ViewBag.SatinAlma == null)
+    {
+        <section class="section-plans" id="section-plans">
+            <div class="u-center-text u-margin-bottom-big">
+                <h2 class="heading-secondary">
+                    Satın alma İşlemi Tamamla
+                </h2>
+            </div>
 
+            <div class="row" style="margin-left:100px;">
+
+                <div class="col-1-1">
+                    <div class="card">
+                        <div class="card__side card__side--front-1">
+                            <div class="card__title card__title--1">
+                                <img src="@Html.DisplayFor(model => model.CarPhoto)"
+                                     height="300"
+                                     width="400"
+                                     class="card-img-top" />
+                                <h3> @Html.DisplayFor(model => model.MarkaName)</h3><br />
+                                <h4> @Html.DisplayFor(model => model.ModelName)</h4>
+
+
+
+                            </div>
+                        </div>
+
+                        <div class="card__side card__side--back card__side--back-1">
+                            <div class="card__cta">
+                                <div class="card__price-box">
+                                    <img src="@Html.DisplayFor(model => model.CarPhoto)"
+                                         height="250"
+                                         width="400"
+                                         class="card-img-top" />
+                                    <p class="card__price-value">Only<br /> $@Html.DisplayFor(model => model.CarFiyat)</p>
+                                </div>
+
+
+                                @using (Html.BeginForm())
+                                {
+                                    @Html.AntiForgeryToken()
+                                            <input type="submit" value="Satin Al"  class="btn btn--white"  style="margin-bottom:100px;margin-left:15px" />                                                                                                       
+                                }
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+
+            <div class="u-center-text u-margin-top-huge">
+                <a href="/home/index" class="btn btn--green">Geri Dön</a>
+
+            </div>
+        </section>
+    }
     @if (ViewBag.SatinAlma != null)
     {
         <h1 class="alert alert-success">@ViewBag.SatinAlma</h1><br />
     }
-    <h1>@Html.DisplayFor(model => model.MarkaName)</h1><br />
-    <h1>@Html.DisplayFor(model => model.ModelName)</h1><br />
-    <h1>@Html.DisplayFor(model => model.CarFiyat)</h1><br />
-    <img src="@Html.DisplayFor(model => model.CarPhoto)"
-         height="300"
-         class="card-img-top" />
-    <br />
 
-
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            @if (ViewBag.SatinAlma == null)
-            {
-                <br />
-                <input type="submit" value="Al" class="btn btn-default" />
-                <br />
-            }
-
-            <a class="btn btn-default" href="/home/index">Geri Don</a>
-        </div>
-    }
 </div>
+@section scripts{
+    <script src="https://kit.fontawesome.com/bdd89edb33.js"></script>
+}
+
+@*<div class="container" style="text-align:center">
+
+        @if (ViewBag.SatinAlma != null)
+        {
+            <h1 class="alert alert-success">@ViewBag.SatinAlma</h1><br />
+        }
+        <h1>@Html.DisplayFor(model => model.MarkaName)</h1><br />
+        <h1>@Html.DisplayFor(model => model.ModelName)</h1><br />
+        <h1>@Html.DisplayFor(model => model.CarFiyat)</h1><br />
+        <img src="@Html.DisplayFor(model => model.CarPhoto)"
+             height="300"
+             class="card-img-top" />
+        <br />
+
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                @if (ViewBag.SatinAlma == null)
+                {
+                    <br />
+                    <input type="submit" value="Al" class="btn btn-default" />
+                    <br />
+                }
+
+                <a class="btn btn-default" href="/home/index">Geri Don</a>
+            </div>
+        }
+    </div>*@
 
 
 

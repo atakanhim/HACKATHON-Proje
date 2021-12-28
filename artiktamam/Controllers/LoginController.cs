@@ -54,7 +54,6 @@ namespace artiktamam.Controllers
 
                 Session.Add("userId", userDetail.UserId);
                 Session.Add("roleId", userDetail.UserRoleId);
-                //  Session["userId"] = userDetail.UserId;
                 return RedirectToAction("Index","Home");
            
         }

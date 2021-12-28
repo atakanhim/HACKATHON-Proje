@@ -97,7 +97,7 @@ namespace artiktamam.Database
 
         }
 
-        private int getUserId(string username)
+        public int getUserId(string username)
         {
             {
                 var userid = (from user in db.Users_Tablo

@@ -3,8 +3,10 @@
 @{
     ViewBag.Title = "Satinalinanlar";
 }
+<div>
+    <h2 style="text-align:center">Satin Alma Gecmisi</h2>
+</div>
 
-<h2>Satin Alma Gecmisi</h2>
 
 <table class="table">
     <tr>
@@ -20,24 +22,29 @@
         <th>
             @Html.DisplayNameFor(model => model.ArabaninFiyati)
         </th>
-        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.SatinAlmaZamani)
+        </th>
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.MusteriAdi)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ArabaninMarkasi)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ArabaninModeli)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ArabaninFiyati)
-        </td>
-    </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.MusteriAdi)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ArabaninMarkasi)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ArabaninModeli)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ArabaninFiyati)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.SatinAlmaZamani)
+    </td>
+</tr>
 }
 
 </table>

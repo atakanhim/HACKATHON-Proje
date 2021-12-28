@@ -80,4 +80,3 @@ C:\Users\ataka\source\repos\artiktamam\artiktamam\bin\EntityFramework.dll
 C:\Users\ataka\source\repos\artiktamam\artiktamam\bin\EntityFramework.SqlServer.dll
 C:\Users\ataka\source\repos\artiktamam\artiktamam\bin\EntityFramework.xml
 C:\Users\ataka\source\repos\artiktamam\artiktamam\bin\EntityFramework.SqlServer.xml
-C:\Users\ataka\source\repos\artiktamam\artiktamam\obj\Debug\artiktamam.csproj.AssemblyReference.cache

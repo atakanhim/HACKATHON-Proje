@@ -22,9 +22,10 @@ namespace artiktamam.Controllers
       
         public ActionResult Edit()
         {
+           
             int id = 0;
             Users_Tablo users_Tablo = new Users_Tablo();
-             id = Convert.ToInt32(Session["userId"]);
+             id = dbIslem.getUserId(User.Identity.Name);
             if (id != 0)
             {
                users_Tablo = db.Users_Tablo.Find(id);

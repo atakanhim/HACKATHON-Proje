@@ -3,34 +3,67 @@
     ViewBag.Title = "Index";
 
 }
-    <link href="~/Content/Cars.css" rel="stylesheet" />
-
+<link href="~/Content/Cars.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900"
+      rel="stylesheet" />
 <div class="row">
 
 
-        @foreach (var item in Model)
-    {
-        <div class="productbox">
-            <img src="@Html.DisplayFor(modelItem => item.CarPhoto)"
-                 height="300"
-                 class="card-img-top"
-                 alt="..." />
-            <div>
-                <h5>
-                    @Html.DisplayFor(modelItem => item.MarkaName)-@Html.DisplayFor(modelItem => item.ModelName)
-                </h5>
-                <h5>
-                    @Html.DisplayFor(modelItem => item.CarFiyat)
-                </h5>
-          
+    <section class="section-plans" id="section-plans" style="text-align:center">
+        <div class="u-center-text u-margin-bottom-big" style="margin-bottom:30px">
+            <h2 class="heading-secondary">
+                Fakirs Gallery
+            </h2>
+        </div>
 
-                <h1>@Html.ActionLink("Satin Al", "SatinAl", new { id = item.ID })</h1>
+        <div class="row" style="margin-left:100px">
+            @foreach (var item in Model)
+            {
+                <div class="col-1-of-3">
+                    <div class="card">
+                        <div class="card__side card__side--front-1">
+                            <div class="card__title card__title--1">
+                                <img src="@Html.DisplayFor(modelItem => item.CarPhoto)"
+                                     height="300"
+                                     width="400"
+                                     class="card-img-top"
+                                     alt="..." />
 
-            </div>
+                            </div>
+
+                            <div class="card__details">
+                                <h3> @Html.DisplayFor(modelItem => item.MarkaName)</h3><br />
+                                <h4> @Html.DisplayFor(modelItem => item.ModelName)</h4>
+                            </div>
+                        </div>
+
+                        <div class="card__side card__side--back card__side--back-1">
+                            <div class="card__cta">
+                                <div class="card__price-box">
+                                    <img src="@Html.DisplayFor(modelItem => item.CarPhoto)"
+                                         height="250"
+                                         width="400"
+                                         class="card-img-top"
+                                         alt="..." />
+                                    <p class="card__price-value">Only<br /> $@Html.DisplayFor(modelItem => item.CarFiyat)</p>
+                                </div>
+                                <h1 class="btn btn--white" style="margin-bottom:100px">@Html.ActionLink("Satin Al", "SatinAl", new { id = item.ID })</h1>
+                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            }
+
 
         </div>
-    }
+
+    </section>
 
 
 </div>
 
+@section scripts{
+    <script src="https://kit.fontawesome.com/bdd89edb33.js"></script>
+}
