@@ -13,10 +13,10 @@ using artiktamam.BlockChainn;
 namespace artiktamam.Controllers
 {
 
-   // [Authorize(Roles ="admin")]
+    [Authorize(Roles ="admin")]
     public class AdminController : Controller
     {
-        private Entities1 db = new Entities1();
+        private projeDataEntities db = new projeDataEntities();
         private DatabaseIslemleri dbIslem = new DatabaseIslemleri();
         SatinalinanlisteleViewModel model = new SatinalinanlisteleViewModel();
         // GET: admin

@@ -47,7 +47,7 @@
                                 @using (Html.BeginForm())
                                 {
                                     @Html.AntiForgeryToken()
-                                            <input type="submit" value="Satin Al"  class="btn btn--white"  style="margin-bottom:100px;margin-left:15px" />                                                                                                       
+                                    <input type="submit" value="Satin Al" class="btn btn--white" style="margin-bottom:100px;margin-left:15px" />
                                 }
 
 
@@ -70,6 +70,10 @@
     @if (ViewBag.SatinAlma != null)
     {
         <h1 class="alert alert-success">@ViewBag.SatinAlma</h1><br />
+        <div class="u-center-text u-margin-top-huge">
+            <a href="/home/index" class="btn btn--green">Geri Dön</a>
+
+        </div>
     }
 
 </div>

@@ -140,58 +140,61 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\BlokZinciri.cs">
-      <DependentUpon>galeriModel.tt</DependentUpon>
+      <DependentUpon>galieriModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CarModelMarkaMapping.cs">
-      <DependentUpon>galeriModel.tt</DependentUpon>
+      <DependentUpon>galieriModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Car_Tablo.cs">
-      <DependentUpon>galeriModel.tt</DependentUpon>
+      <DependentUpon>galieriModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DatabaseViews.cs" />
-    <Compile Include="Models\galeriModel.Context.cs">
+    <Compile Include="Models\galieriModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>galeriModel.Context.tt</DependentUpon>
+      <DependentUpon>galieriModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\galeriModel.cs">
+    <Compile Include="Models\galieriModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>galeriModel.tt</DependentUpon>
+      <DependentUpon>galieriModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\galeriModel.Designer.cs">
+    <Compile Include="Models\galieriModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>galeriModel.edmx</DependentUpon>
+      <DependentUpon>galieriModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\Marka_Tablo.cs">
-      <DependentUpon>galeriModel.tt</DependentUpon>
+      <DependentUpon>galieriModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Model_Table.cs">
-      <DependentUpon>galeriModel.tt</DependentUpon>
+      <DependentUpon>galieriModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Register.cs" />
     <Compile Include="Models\Roles_Tablo.cs">
-      <DependentUpon>galeriModel.tt</DependentUpon>
+      <DependentUpon>galieriModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SatinalinanlisteleViewModel.cs" />
     <Compile Include="Models\SatinalmaGecmisi.cs" />
     <Compile Include="Models\SatinalmaGecmisi_Table.cs">
-      <DependentUpon>galeriModel.tt</DependentUpon>
+      <DependentUpon>galieriModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ShowCars.cs">
-      <DependentUpon>galeriModel.tt</DependentUpon>
+      <DependentUpon>galieriModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagrams.cs">
-      <DependentUpon>galeriModel.tt</DependentUpon>
+      <DependentUpon>galieriModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TodaysOrders.cs">
+      <DependentUpon>galieriModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\UserRoleMapping.cs">
-      <DependentUpon>galeriModel.tt</DependentUpon>
+      <DependentUpon>galieriModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Users_Tablo.cs">
-      <DependentUpon>galeriModel.tt</DependentUpon>
+      <DependentUpon>galieriModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\PersonelRoleProvider.cs" />
@@ -207,25 +210,25 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\galeriModel.Context.tt">
+    <Content Include="Models\galieriModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>galeriModel.edmx</DependentUpon>
-      <LastGenOutput>galeriModel.Context.cs</LastGenOutput>
+      <DependentUpon>galieriModel.edmx</DependentUpon>
+      <LastGenOutput>galieriModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\galeriModel.tt">
+    <Content Include="Models\galieriModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>galeriModel.edmx</DependentUpon>
-      <LastGenOutput>galeriModel.cs</LastGenOutput>
+      <DependentUpon>galieriModel.edmx</DependentUpon>
+      <LastGenOutput>galieriModel.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\Login.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\galeriModel.edmx">
+    <EntityDeploy Include="Models\galieriModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>galeriModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>galieriModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\galeriModel.edmx.diagram">
-      <DependentUpon>galeriModel.edmx</DependentUpon>
+    <Content Include="Models\galieriModel.edmx.diagram">
+      <DependentUpon>galieriModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
