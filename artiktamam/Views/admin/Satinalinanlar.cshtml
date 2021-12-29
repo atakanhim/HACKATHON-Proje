@@ -7,7 +7,7 @@
 
 
 
-    <table class="table" style="margin-top:30px">
+    <table class="table" style="margin-top:20px;margin-left:-170px" >
         <thead>
             <tr>
                 <td> Block_No </td>
@@ -17,8 +17,8 @@
                 <td> Arabanin_Fiyati </td>
                 <td> Siparis_Kodu </td>
                 <td> Satin_Alma_Zamani </td>
-                <td> Prev_Hash </td>
-                <td> Hash </td>
+                <td style="width:100px !important;overflow:auto" > Prev_Hash </td>
+                <td width="100"> Hash </td>
             </tr>
 
         </thead>
@@ -82,12 +82,17 @@
     </table>
     <div class="row" style="text-align:center">
         <div class="col-lg-12">
-            <a href="/admin/yenile" class="btn btn-danger" style="text-align:center"> Yenile</a>
+            <a href="/admin/yenile" class="btn btn-danger" style="text-align:center"> Database Update</a>
         </div>
         <div class="col-lg-12">
-            <b style="font-size:8px;color:dimgrey">Bu buton zinciri yok edip yeniden oluşturur</b>
+            <b style="font-size:12px;color:dimgrey">Bu buton zinciri yok edip yeniden oluşturur</b>
         </div>
-      
+        <div class="col-lg-12" style="margin-top:80px">
+            <a href="/admin/gecmisSiparisSil" class="btn btn-danger" style="text-align:center"> Database Reset</a>
+        </div>
+        <div class="col-lg-12">
+            <b style="font-size:12px;color:dimgrey">Tüm Geçmiş Verileri Resertler.</b>
+        </div>
     </div>
   
 </div>

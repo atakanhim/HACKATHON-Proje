@@ -89,7 +89,14 @@ namespace artiktamam.Controllers
         public ActionResult Yenile()
         {
 
-            dbIslem.DatabaseVeri0la();
+            dbIslem.DatabaseVeri0la("BlokZinciri");
+            return RedirectToAction("Satinalinanlar", "Admin");
+        }
+        public ActionResult GecmisSiparisSil()
+        {
+
+            dbIslem.DatabaseVeri0la("SatinalmaGecmisi_Table");
+            dbIslem.DatabaseVeri0la("BlokZinciri");
             return RedirectToAction("Satinalinanlar", "Admin");
         }
 

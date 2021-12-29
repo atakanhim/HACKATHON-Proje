@@ -19,9 +19,9 @@ namespace artiktamam.Database
                                 ).FirstOrDefault();
             return selectedUser;
         }
-        public void DatabaseVeri0la()
+        public void DatabaseVeri0la(string tableName)
         {
-            db.Database.ExecuteSqlCommand("TRUNCATE TABLE BlokZinciri");
+            db.Database.ExecuteSqlCommand("TRUNCATE TABLE "+ tableName);
         }
         public void DataBaseZincirEkle(List<Block> block)
         {
@@ -69,8 +69,24 @@ namespace artiktamam.Database
             var arabalar = this.getArabaIds();// satin alma tablosundaki veriler
             int zincirin_bozuldugu_yer = 0;
 
+            int fark = 0;
+            int yazdirLen = 1;
+            int arabaLen = arabalar.Length + 1;
+            int bloklen = blocks.Length;
 
-            for (int i = 1; i < arabalar.Length + 1; i++)
+            if (arabaLen >= bloklen)
+            {
+                fark = arabaLen - bloklen;
+                yazdirLen = arabaLen;
+            }
+            else if (arabaLen < bloklen)
+            {
+                fark = bloklen - arabaLen;
+                yazdirLen = arabaLen;
+            }
+            
+             
+            for (int i = 1; i < yazdirLen - fark ; i++)
             {
                 var arabaid = arabalar[i - 1];
                 var Araba = this.getArabaWithId(arabaid);//araba bilgilerini sıra ile alıyoruz
@@ -96,12 +112,12 @@ namespace artiktamam.Database
                 int changed;
 
 
-                for (int i = 0; i < arabalar.Length; i++)
+                for (int i = 1; i < yazdirLen-fark; i++)
                 {
                     
-                    var arabaid = arabalar[i];
+                    var arabaid = arabalar[i-1];
                     var Araba = this.getArabaWithId(arabaid);//araba bilgilerini sıra ile alıyoruz
-                    var blokeId = blocks[i+1];
+                    var blokeId = blocks[i];
                     var bloke = this.getBlokeWithId(blokeId);// bloke bilgilerini sıra ile alıyoruz
                     List<SatinalmaGecmisi_Table> SatinAlmaGecmisi = new List<SatinalmaGecmisi_Table>();
                     SatinAlmaGecmisi.Add(new SatinalmaGecmisi_Table()
@@ -113,14 +129,14 @@ namespace artiktamam.Database
                         SatinAlmaZamani = Araba.SatinAlmaZamani,
                         ArabaninFiyati = Araba.ArabaninFiyati
                     });
-                    if (zincirin_bozuldugu_yer < i + 2)
+                    if (zincirin_bozuldugu_yer < i + 1)
                     {
                         Block b = new Block()
                         {
                             Data = SatinAlmaGecmisi,
                             TimeStamp = DateTime.UtcNow,
                             changed = 0,
-                            BlockNo = i + 1
+                            BlockNo = i 
                         };
                         currentBlock.Mine(b);
                     }
@@ -210,7 +226,7 @@ namespace artiktamam.Database
                           select blok
                                   ).ToList();
             int x = zincir.Count();
-            return x > 2 ? true : false;
+            return x  >  0 ? true : false;
         }
         public SatinalmaGecmisi_Table getArabaWithId(int id)
         {
