@@ -19,7 +19,7 @@ namespace artiktamam.BlockChainn
         private int Difficulty;
         public BlockChain(Block genesisBlock)
         {
-            Difficulty = 1;
+            Difficulty = 2;
             Chain = new List<Block>();
             Chain.Add(genesisBlock);
         }
@@ -48,6 +48,10 @@ namespace artiktamam.BlockChainn
                     break;
                 }
             }
+            Chain.Add(blockToAdd);
+        }
+        public void MineNoHash(Block blockToAdd)
+        {
             Chain.Add(blockToAdd);
         }
         /// <summary>

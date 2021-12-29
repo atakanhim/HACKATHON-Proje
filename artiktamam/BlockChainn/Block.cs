@@ -11,7 +11,9 @@ namespace artiktamam.BlockChainn
         /// <summary>
         /// Proof of Work için gerekli Nonce
         /// </summary>
+        /// 
         public int Nonce { get; set; }
+        public int BlockNo { get; set; }
         /// <summary>
         /// Transaction'ların tutulduğu değişken
         /// </summary>
@@ -25,7 +27,7 @@ namespace artiktamam.BlockChainn
         /// </summary>
         public string Hash { get; set; }
 
-        public bool changed { get; set; }
+        public int changed { get; set; }
 
         /// <summary>
         /// Blok oluşturulduğu tarih

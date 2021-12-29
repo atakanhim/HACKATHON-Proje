@@ -167,7 +167,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="galeriEntities7" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="galeriEntities8" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Car_Tablo" EntityType="Self.Car_Tablo" />
     <EntitySet Name="Marka_Tablo" EntityType="Self.Marka_Tablo" />
     <EntitySet Name="Model_Table" EntityType="Self.Model_Table" />

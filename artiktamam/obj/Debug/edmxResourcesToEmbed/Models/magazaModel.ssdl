@@ -1,5 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="galeriModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'galeri.dbo.BlokZinciri' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="BlokZinciri">
+          <Property Name="BlockId" Type="int" />
+          <Property Name="MusteriAdi" Type="varchar" MaxLength="50" />
+          <Property Name="ArabaninMarkasi" Type="varchar" MaxLength="50" />
+          <Property Name="ArabaninModeli" Type="varchar" MaxLength="50" />
+          <Property Name="SiparisKodu" Type="int" />
+          <Property Name="SatinAlmaZamani" Type="datetime" />
+          <Property Name="ArabaninFiyati" Type="int" />
+          <Property Name="TimeStamp" Type="datetime" />
+          <Property Name="Changed" Type="int" />
+        </EntityType>-->
   <EntityType Name="Car_Tablo">
     <Key>
       <PropertyRef Name="CarId" />

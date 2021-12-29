@@ -3,12 +3,13 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
 using artiktamam.Database;
+using System.Collections.Generic;
 
 namespace artiktamam.Controllers
 {
     public class LoginController : Controller
     {
-       private DatabaseIslemleri dbIslem = new DatabaseIslemleri();
+        private DatabaseIslemleri dbIslem = new DatabaseIslemleri();
         // GET: Login
         public ActionResult Index()
         {
@@ -17,7 +18,7 @@ namespace artiktamam.Controllers
         [HttpGet]
         public ActionResult Register()
         {
-            
+
             return View();
         }
         [HttpPost]
@@ -35,27 +36,29 @@ namespace artiktamam.Controllers
                 ModelState.Clear();
                 ViewBag.SuccessMessage = "Kayıt oldunuz lütfen giriş yapınız";
                 return View("Index");
-            }        
-          
+            }
+
         }
         [HttpPost]
         public ActionResult Login(Login login)
 
         {
-                var userDetail = dbIslem.GetUser(login.UserName);
-                if(userDetail == null)
-                {
-                    ViewBag.DuplicateMessage = "Yanlis Kullanıcı adı Veya Şifre";
-                     return View("Index");
-                }
+            var userDetail = dbIslem.GetUser(login.UserName);
+            if (userDetail == null)
+            {
+                ViewBag.DuplicateMessage = "Yanlis Kullanıcı adı Veya Şifre";
+                return View("Index");
+            }
 
-                FormsAuthentication.SetAuthCookie(userDetail.UserName, false);
+            FormsAuthentication.SetAuthCookie(userDetail.UserName, false);
+            Session.Add("userId", userDetail.UserId);
+            Session.Add("roleId", userDetail.UserRoleId);
+
+            return RedirectToAction("Index", "Home");
 
 
-                Session.Add("userId", userDetail.UserId);
-                Session.Add("roleId", userDetail.UserRoleId);
-                return RedirectToAction("Index","Home");
-           
+
+
         }
         public ActionResult LogOut()
         {

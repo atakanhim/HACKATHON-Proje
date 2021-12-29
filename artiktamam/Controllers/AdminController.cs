@@ -13,21 +13,25 @@ using artiktamam.BlockChainn;
 namespace artiktamam.Controllers
 {
 
-  //  [Authorize(Roles ="admin")]
+    [Authorize(Roles ="admin")]
     public class AdminController : Controller
     {
-        private galeriEntities7 db = new galeriEntities7();
+        private galeriEntities10 db = new galeriEntities10();
         private DatabaseIslemleri dbIslem = new DatabaseIslemleri();
+        SatinalinanlisteleViewModel model = new SatinalinanlisteleViewModel();
         // GET: admin
-        
+
         public ActionResult Index()         
         {
             return View(db.Users_Tablo.ToList());
         }
 
-        public ActionResult Satinalinanlar()
+        public  ActionResult Satinalinanlar()
         {
-            bool ilkListeleme = true;
+            var arabalar = dbIslem.getArabaIds();
+            int blockNo = 0;
+
+
             BlockChain blockChain = new BlockChain(new Block()
             {
                 Data = new List<SatinalmaGecmisi_Table>(),
@@ -35,38 +39,58 @@ namespace artiktamam.Controllers
                 Nonce = 1,
                 PrevHash = "00000000000000000000000000000000000000000000000000000",
                 TimeStamp = DateTime.UtcNow,
-                changed = false
-            }); 
-       
-            for (int i = 0; i < db.SatinalmaGecmisi_Table.Count(); i++)
+                changed = 1,
+                BlockNo=blockNo++
+            });
+            if (dbIslem.ZincirDoluMu())
             {
-                var Araba = dbIslem.getArabaWithId(i + 1);//araba bilgilerini sıra ile alıyoruz
-
-
-                    List<SatinalmaGecmisi_Table> SatinAlmaGecmisi = new List<SatinalmaGecmisi_Table>();
-                SatinAlmaGecmisi.Add(new SatinalmaGecmisi_Table()
+                blockChain.Chain = dbIslem.getZincirFromDatabase();
+            }
+            else
+            {
+                for (int i = 0; i < db.SatinalmaGecmisi_Table.Count(); i++)
                 {
-                    MusteriAdi = Araba.MusteriAdi,
-                    ArabaninMarkasi = Araba.ArabaninMarkasi,
-                    ArabaninModeli =Araba.ArabaninModeli,
-                    SiparisKodu = Araba.SiparisKodu,
-                    SatinAlmaZamani = Araba.SatinAlmaZamani,
-                    ArabaninFiyati = Araba.ArabaninFiyati 
-                }); 
+                    var arabaid = arabalar[i];
+                    var Araba = dbIslem.getArabaWithId(arabaid);//araba bilgilerini sıra ile alıyoruz
+                    List<SatinalmaGecmisi_Table> SatinAlmaGecmisi = new List<SatinalmaGecmisi_Table>();
+                    SatinAlmaGecmisi.Add(new SatinalmaGecmisi_Table()
+                    {
+                        MusteriAdi = Araba.MusteriAdi,
+                        ArabaninMarkasi = Araba.ArabaninMarkasi,
+                        ArabaninModeli = Araba.ArabaninModeli,
+                        SiparisKodu = Araba.SiparisKodu,
+                        SatinAlmaZamani = Araba.SatinAlmaZamani,
+                        ArabaninFiyati = Araba.ArabaninFiyati
+                    });
                     Block b = new Block()
                     {
                         Data = SatinAlmaGecmisi,
                         TimeStamp = DateTime.UtcNow,
-                        changed = false
+                        changed = 1,
+                        BlockNo = blockNo++
+
                     };
-
                     blockChain.Mine(b);
-                      
+                }
+                dbIslem.DataBaseZincirEkle(blockChain.Chain);// database ekliyoruz 
             }
-            SatinalinanlisteleViewModel model = new SatinalinanlisteleViewModel();
-            model.block = blockChain.Chain;
+            // siradki islem zincir verileri ile , databasedeki verileri karsilastirmak
 
-            return View(model);
+            // zincir doluysa dolu verileri alacam
+            // zincir boşsa zincir oluşturup o verileri alacam
+            // kullanıcıya göstermek için aldıgım verileri tam kullanıcıya gösterecekken kontrol ediyorum bu kontrol  satinalma tablosundaki verilerle olmalı
+
+           blockChain.Chain =  dbIslem.karsilastir(blockChain.Chain);
+            model.block = blockChain.Chain;
+                return View(model);
+         
+                
+        }
+        public ActionResult Yenile()
+        {
+
+            dbIslem.DatabaseVeri0la();
+            return RedirectToAction("Satinalinanlar", "Admin");
         }
 
         // GET: admin/Delete/5

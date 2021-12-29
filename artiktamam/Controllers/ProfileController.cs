@@ -15,7 +15,7 @@ namespace artiktamam.Controllers
     [Authorize(Roles="kullanici")]
     public class ProfileController : Controller
     {
-        private galeriEntities7 db = new galeriEntities7();
+        private galeriEntities10 db = new galeriEntities10();
         private DatabaseIslemleri dbIslem = new DatabaseIslemleri();
 
         // GET: Users_Tablo/Edit/5
