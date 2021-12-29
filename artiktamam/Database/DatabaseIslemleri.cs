@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using artiktamam.BlockChainn;
@@ -9,12 +10,20 @@ namespace artiktamam.Database
 {
     public class DatabaseIslemleri
     {
-        private galeriEntities10 db = new galeriEntities10();
+        private Entities1 db = new Entities1();
 
         public Users_Tablo GetUser(string username)
         {
             var selectedUser = (from user in db.Users_Tablo
                                 where user.UserName == username
+                                select user
+                                ).FirstOrDefault();
+            return selectedUser;
+        }
+        public Users_Tablo GetUserWithId(int id)
+        {
+            var selectedUser = (from user in db.Users_Tablo
+                                where user.UserId == id
                                 select user
                                 ).FirstOrDefault();
             return selectedUser;
@@ -89,7 +98,7 @@ namespace artiktamam.Database
             for (int i = 1; i < yazdirLen - fark ; i++)
             {
                 var arabaid = arabalar[i - 1];
-                var Araba = this.getArabaWithId(arabaid);//araba bilgilerini sıra ile alıyoruz
+                var Araba = this.GetArabaWithId(arabaid);//araba bilgilerini sıra ile alıyoruz
                 var blokeId = blocks[i];
                 var bloke = this.getBlokeWithId(blokeId);// bloke bilgilerini sıra ile alıyoruz
                 
@@ -109,14 +118,13 @@ namespace artiktamam.Database
 
             if (zincirin_bozuldugu_yer > 0)// ziincirde veri degişirse  buraya geliyor
             {
-                int changed;
 
 
                 for (int i = 1; i < yazdirLen-fark; i++)
                 {
                     
                     var arabaid = arabalar[i-1];
-                    var Araba = this.getArabaWithId(arabaid);//araba bilgilerini sıra ile alıyoruz
+                    var Araba = this.GetArabaWithId(arabaid);//araba bilgilerini sıra ile alıyoruz
                     var blokeId = blocks[i];
                     var bloke = this.getBlokeWithId(blokeId);// bloke bilgilerini sıra ile alıyoruz
                     List<SatinalmaGecmisi_Table> SatinAlmaGecmisi = new List<SatinalmaGecmisi_Table>();
@@ -147,7 +155,7 @@ namespace artiktamam.Database
                             Data = SatinAlmaGecmisi,
                             TimeStamp = DateTime.UtcNow,
                             changed = 1,
-                            BlockNo = i + 1,
+                            BlockNo = i ,
                             Hash=bloke.Hash,
                             PrevHash=bloke.PrevHash
                         };
@@ -228,7 +236,7 @@ namespace artiktamam.Database
             int x = zincir.Count();
             return x  >  0 ? true : false;
         }
-        public SatinalmaGecmisi_Table getArabaWithId(int id)
+        public SatinalmaGecmisi_Table GetArabaWithId(int id)
         {
             var selectedCar = (from car in db.SatinalmaGecmisi_Table
                                where car.Id == id
@@ -261,18 +269,23 @@ namespace artiktamam.Database
                  select bloke.BlockId).ToList();
             return ids.ToArray();
         }
-        public Boolean Register(Register register)//register objesinden aldıgımız degeri users a ekliyoruz
+        public string Register(Register register)//register objesinden aldıgımız degeri users a ekliyoruz
         {
             Users_Tablo usertablo = new Users_Tablo()
             {
                 UserName = register.UserName,
                 UserPassword = register.PassWord,
-                UserRoleId = 2
+                UserRoleId = 2,
+                UserEmail=register.Email
             };
 
             if (db.Users_Tablo.Any(x => x.UserName == register.UserName))
             {
-                return true;
+                return "Bu Username Daha önce alınmıs";
+            }
+            else if (db.Users_Tablo.Any(x => x.UserEmail == register.Email))
+            {
+                return "Bu E-Posta Daha önce alınmıs";
             }
             else
             {
@@ -281,7 +294,27 @@ namespace artiktamam.Database
 
                 var registerId = getUserId(register.UserName);
                 addRole(registerId);
-                return false;
+                return "Kayıt oldunuz lütfen giriş yapınız";
+            }
+        }
+        public string Edit(Users_Tablo users_Tablo)
+        {
+            Users_Tablo veritbanindakiHali = GetUserWithId(users_Tablo.UserId);
+
+
+
+            if ((db.Users_Tablo.Any(x => x.UserEmail == users_Tablo.UserEmail)) && users_Tablo.UserEmail != veritbanindakiHali.UserEmail)
+            {
+                return "Bu Email Daha Önce kayıtlı";
+            }
+            else if ((db.Users_Tablo.Any(x => x.UserName == users_Tablo.UserName)) && users_Tablo.UserName != veritbanindakiHali.UserName)
+            {
+                return "Bu Username Daha Önce kayıtlı";
+            }
+            else
+            {
+              
+                return "Edit Islemi Basarili";
             }
         }
         public Boolean addSatinAlmaGecmisine(ShowCars car, string username)

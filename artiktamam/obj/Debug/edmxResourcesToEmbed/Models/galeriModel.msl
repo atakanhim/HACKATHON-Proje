@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="galeriModelStoreContainer" CdmEntityContainer="galeriEntities10">
+  <EntityContainerMapping StorageEntityContainer="dataModelStoreContainer" CdmEntityContainer="Entities1">
     <EntitySetMapping Name="BlokZinciri">
-      <EntityTypeMapping TypeName="galeriModel.BlokZinciri">
+      <EntityTypeMapping TypeName="dataModel.BlokZinciri">
         <MappingFragment StoreEntitySet="BlokZinciri">
           <ScalarProperty Name="BlockId" ColumnName="BlockId" />
           <ScalarProperty Name="MusteriAdi" ColumnName="MusteriAdi" />
@@ -19,18 +19,25 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Car_Tablo">
-      <EntityTypeMapping TypeName="galeriModel.Car_Tablo">
+      <EntityTypeMapping TypeName="dataModel.Car_Tablo">
         <MappingFragment StoreEntitySet="Car_Tablo">
           <ScalarProperty Name="CarId" ColumnName="CarId" />
-          <ScalarProperty Name="CarMarkaKod" ColumnName="CarMarkaKod" />
-          <ScalarProperty Name="CarModelKod" ColumnName="CarModelKod" />
+          <ScalarProperty Name="CarKod" ColumnName="CarKod" />
           <ScalarProperty Name="CarFiyat" ColumnName="CarFiyat" />
           <ScalarProperty Name="CarPhoto" ColumnName="CarPhoto" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="CarModelMarkaMapping">
+      <EntityTypeMapping TypeName="dataModel.CarModelMarkaMapping">
+        <MappingFragment StoreEntitySet="CarModelMarkaMapping">
+          <ScalarProperty Name="CarKod" ColumnName="CarKod" />
+          <ScalarProperty Name="CarModel" ColumnName="CarModel" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Marka_Tablo">
-      <EntityTypeMapping TypeName="galeriModel.Marka_Tablo">
+      <EntityTypeMapping TypeName="dataModel.Marka_Tablo">
         <MappingFragment StoreEntitySet="Marka_Tablo">
           <ScalarProperty Name="MarkaKod" ColumnName="MarkaKod" />
           <ScalarProperty Name="MarkaName" ColumnName="MarkaName" />
@@ -38,7 +45,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Model_Table">
-      <EntityTypeMapping TypeName="galeriModel.Model_Table">
+      <EntityTypeMapping TypeName="dataModel.Model_Table">
         <MappingFragment StoreEntitySet="Model_Table">
           <ScalarProperty Name="ModelKod" ColumnName="ModelKod" />
           <ScalarProperty Name="MarkaKod" ColumnName="MarkaKod" />
@@ -47,7 +54,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Roles_Tablo">
-      <EntityTypeMapping TypeName="galeriModel.Roles_Tablo">
+      <EntityTypeMapping TypeName="dataModel.Roles_Tablo">
         <MappingFragment StoreEntitySet="Roles_Tablo">
           <ScalarProperty Name="RoleId" ColumnName="RoleId" />
           <ScalarProperty Name="RoleName" ColumnName="RoleName" />
@@ -55,7 +62,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="SatinalmaGecmisi_Table">
-      <EntityTypeMapping TypeName="galeriModel.SatinalmaGecmisi_Table">
+      <EntityTypeMapping TypeName="dataModel.SatinalmaGecmisi_Table">
         <MappingFragment StoreEntitySet="SatinalmaGecmisi_Table">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="MusteriAdi" ColumnName="MusteriAdi" />
@@ -68,7 +75,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="sysdiagrams">
-      <EntityTypeMapping TypeName="galeriModel.sysdiagrams">
+      <EntityTypeMapping TypeName="dataModel.sysdiagrams">
         <MappingFragment StoreEntitySet="sysdiagrams">
           <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -79,7 +86,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="UserRoleMapping">
-      <EntityTypeMapping TypeName="galeriModel.UserRoleMapping">
+      <EntityTypeMapping TypeName="dataModel.UserRoleMapping">
         <MappingFragment StoreEntitySet="UserRoleMapping">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -88,7 +95,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Users_Tablo">
-      <EntityTypeMapping TypeName="galeriModel.Users_Tablo">
+      <EntityTypeMapping TypeName="dataModel.Users_Tablo">
         <MappingFragment StoreEntitySet="Users_Tablo">
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />
@@ -100,11 +107,11 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="ShowCars">
-      <EntityTypeMapping TypeName="galeriModel.ShowCars">
+      <EntityTypeMapping TypeName="dataModel.ShowCars">
         <MappingFragment StoreEntitySet="ShowCars">
           <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="MarkaName" ColumnName="MarkaName" />
           <ScalarProperty Name="ModelName" ColumnName="ModelName" />
+          <ScalarProperty Name="MarkaName" ColumnName="MarkaName" />
           <ScalarProperty Name="CarFiyat" ColumnName="CarFiyat" />
           <ScalarProperty Name="CarPhoto" ColumnName="CarPhoto" />
         </MappingFragment>

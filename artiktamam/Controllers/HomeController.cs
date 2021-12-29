@@ -14,7 +14,7 @@ namespace artiktamam.Controllers
     public class HomeController : Controller
     {
         private DatabaseIslemleri dbIslem = new DatabaseIslemleri();
-        private galeriEntities10 db = new galeriEntities10();
+        private Entities1 db = new Entities1();
         public ActionResult Index()
         {
             

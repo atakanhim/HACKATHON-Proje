@@ -13,5 +13,8 @@ namespace artiktamam.Models
         [DisplayName("Confirm Password")]
         [Compare("PassWord")]
         public string PassWordAgain { get; set; }
+
+        [Required(ErrorMessage = "Email Bos Birakılamaz")]
+        public string Email { get; set; }
     }
 }

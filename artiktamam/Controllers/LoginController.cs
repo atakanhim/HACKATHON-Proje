@@ -25,16 +25,26 @@ namespace artiktamam.Controllers
         public ActionResult Register(Register register)
 
         {
-            var islem = dbIslem.Register(register);
-            if (islem)
+            string mesaj = dbIslem.Register(register);
+            if (mesaj=="Bu Username Daha önce alınmıs")
             {
-                ViewBag.DuplicateMessage = "Bu Username Daha önce alınmıs";
+                ViewBag.DuplicateMessage = mesaj;
+                return View("Index");
+            }
+            else if (mesaj == "Bu E-Posta Daha önce alınmıs")
+            {
+                ModelState.Clear();
+                ViewBag.DuplicateMessage = mesaj;
+                return View("Index");
+            }
+            else if (mesaj == "Kayıt oldunuz lütfen giriş yapınız")
+            {
+                ModelState.Clear();
+                ViewBag.SuccessMessage = mesaj;
                 return View("Index");
             }
             else
             {
-                ModelState.Clear();
-                ViewBag.SuccessMessage = "Kayıt oldunuz lütfen giriş yapınız";
                 return View("Index");
             }
 

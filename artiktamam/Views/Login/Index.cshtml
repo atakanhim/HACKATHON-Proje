@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
-    
+
 }
 @section Styles {
     <link href="~/Content/Login.css" rel="stylesheet" />
@@ -26,7 +26,7 @@
             </div>
 
             <div class="white-panel">
-                <div class="login-show" >
+                <div class="login-show">
                     <h2>Giriş Yap</h2>
                     @using (Html.BeginForm("Login", "Login", FormMethod.Post))
                     {
@@ -35,28 +35,28 @@
                                 <tr>
                                     <td>Kullanıcı Adı</td>
                                     <td>
-                                         @Html.EditorFor(m => m.Login.UserName)
-                                         @Html.ValidationMessageFor(m => m.Login.UserName)
+                                        @Html.EditorFor(m => m.Login.UserName)
+                                        @Html.ValidationMessageFor(m => m.Login.UserName)
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Şifre </td>
                                     <td>
-                                         @Html.EditorFor(m => m.Login.PassWord)
-                                         @Html.ValidationMessageFor(m => m.Login.PassWord)
+                                        @Html.EditorFor(m => m.Login.PassWord)
+                                        @Html.ValidationMessageFor(m => m.Login.PassWord)
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                         <input type="submit" value="Giriş Yap">
-    
+
                     }
                 </div>
                 <div class="register-show">
-                    <h2>Üye Ol</h2>
+                    <h2 style="margin-top:-30px">Üye Ol</h2>
                     @using (Html.BeginForm("Register", "Login", FormMethod.Post))
                     {
-                        <table>
+                        <table >
                             <tbody>
                                 <tr>
                                     <td>Kullanıcı Adı </td>
@@ -80,9 +80,18 @@
 
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td>E Mail</td>
+                                    <td>
+                                        @Html.EditorFor(m => m.Register.Email)
+                                        @Html.ValidationMessageFor(m => m.Register.Email)
+
+                                    </td>
+                                </tr>
+
                             </tbody>
                         </table>
-                        <input type="submit" value="Üye Ol">
+                        <input type="submit" value="Üye Ol" >
                     }
 
                 </div>
@@ -103,7 +112,7 @@
 
     </div>
 
-   
+
 
 </div>
 

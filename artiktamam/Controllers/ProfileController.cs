@@ -12,27 +12,27 @@ using System.Web.Security;
 
 namespace artiktamam.Controllers
 {
-    [Authorize(Roles="kullanici")]
+    [Authorize(Roles = "kullanici")]
     public class ProfileController : Controller
     {
-        private galeriEntities10 db = new galeriEntities10();
+        private Entities1 db = new Entities1();
         private DatabaseIslemleri dbIslem = new DatabaseIslemleri();
 
         // GET: Users_Tablo/Edit/5
-      
+
         public ActionResult Edit()
         {
-           
+
             int id = 0;
             Users_Tablo users_Tablo = new Users_Tablo();
-             id = dbIslem.getUserId(User.Identity.Name);
+            id = dbIslem.getUserId(User.Identity.Name);
             if (id != 0)
             {
-               users_Tablo = db.Users_Tablo.Find(id);
+                users_Tablo = db.Users_Tablo.Find(id);
             }
             else
             {
-                RedirectToAction("Index","Home");
+                RedirectToAction("Index", "Home");
             }
 
             return View(users_Tablo);
@@ -45,26 +45,46 @@ namespace artiktamam.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "UserId,UserName,UserPassword,UserRoleId,UserEmail,UserAdres")] Users_Tablo users_Tablo)
         {
+           
             if (ModelState.IsValid)
             {
-                int x = 2;
-                string []dizi = dbIslem.getRole(users_Tablo.UserId);
-                for(int i = 0; i < dizi.Length; i++)
+                string islem = dbIslem.Edit(users_Tablo);
+                if (islem== "Bu Email Daha Önce kayıtlı")
                 {
-                    if (dizi[i] == "admin")
-                        x = 1;              
+                    ViewBag.EditAlertMessage = islem;
+
+                    return View(users_Tablo);
+                }
+                else if (islem == "Bu Username Daha Önce kayıtlı")
+                {
+                    ViewBag.EditAlertMessage = islem;
+
+                    return View(users_Tablo);
+                }
+                else if(islem== "Edit Islemi Basarili")
+                {
+                    int x = 2;
+                    string[] dizi = dbIslem.getRole(users_Tablo.UserId);
+                    for (int i = 0; i < dizi.Length; i++)
+                    {
+                        if (dizi[i] == "admin")
+                            x = 1;
                     }
-       
-                users_Tablo.UserRoleId = x;
-                db.Entry(users_Tablo).State = EntityState.Modified; 
-                db.SaveChanges();
-                ViewBag.EditSuccessMessage = "Edit Islemi Basarili";
-                return View(users_Tablo);
+
+                    users_Tablo.UserRoleId = x;
+                    db.Entry(users_Tablo).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                    ModelState.Clear();
+                    ViewBag.EditSuccessMessage = islem;
+
+                    return View(users_Tablo);
+                }          
             }
             return View(users_Tablo);
         }
 
-  
-     
+
+
     }
 }

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="galeriModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+<Schema Namespace="dataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityType Name="BlokZinciri">
     <Key>
       <PropertyRef Name="BlockId" />
@@ -21,12 +21,19 @@
       <PropertyRef Name="CarId" />
     </Key>
     <Property Name="CarId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="CarMarkaKod" Type="Int32" />
-    <Property Name="CarModelKod" Type="Int32" />
+    <Property Name="CarKod" Type="Int32" />
     <Property Name="CarFiyat" Type="Decimal" Precision="19" Scale="4" />
     <Property Name="CarPhoto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="Marka_Tablo" Relationship="Self.FK_Car_Tablo_Marka_Tablo1" FromRole="Car_Tablo" ToRole="Marka_Tablo" />
-    <NavigationProperty Name="Model_Table" Relationship="Self.FK_Car_Tablo_Model_Table" FromRole="Car_Tablo" ToRole="Model_Table" />
+    <NavigationProperty Name="CarModelMarkaMapping" Relationship="Self.FK_Car_Tablo_CarModelMarkaMapping" FromRole="Car_Tablo" ToRole="CarModelMarkaMapping" />
+  </EntityType>
+  <EntityType Name="CarModelMarkaMapping">
+    <Key>
+      <PropertyRef Name="CarKod" />
+    </Key>
+    <Property Name="CarKod" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CarModel" Type="Int32" />
+    <NavigationProperty Name="Car_Tablo" Relationship="Self.FK_Car_Tablo_CarModelMarkaMapping" FromRole="CarModelMarkaMapping" ToRole="Car_Tablo" />
+    <NavigationProperty Name="Model_Table" Relationship="Self.FK_CarModelMarkaMapping_Model_Table" FromRole="CarModelMarkaMapping" ToRole="Model_Table" />
   </EntityType>
   <EntityType Name="Marka_Tablo">
     <Key>
@@ -34,7 +41,6 @@
     </Key>
     <Property Name="MarkaKod" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="MarkaName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="Car_Tablo" Relationship="Self.FK_Car_Tablo_Marka_Tablo1" FromRole="Marka_Tablo" ToRole="Car_Tablo" />
     <NavigationProperty Name="Model_Table" Relationship="Self.FK_Model_Table_Marka_Tablo" FromRole="Marka_Tablo" ToRole="Model_Table" />
   </EntityType>
   <EntityType Name="Model_Table">
@@ -44,7 +50,7 @@
     <Property Name="ModelKod" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="MarkaKod" Type="Int32" />
     <Property Name="ModelName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="Car_Tablo" Relationship="Self.FK_Car_Tablo_Model_Table" FromRole="Model_Table" ToRole="Car_Tablo" />
+    <NavigationProperty Name="CarModelMarkaMapping" Relationship="Self.FK_CarModelMarkaMapping_Model_Table" FromRole="Model_Table" ToRole="CarModelMarkaMapping" />
     <NavigationProperty Name="Marka_Tablo" Relationship="Self.FK_Model_Table_Marka_Tablo" FromRole="Model_Table" ToRole="Marka_Tablo" />
   </EntityType>
   <EntityType Name="Roles_Tablo">
@@ -106,32 +112,32 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="Int32" Nullable="false" />
-    <Property Name="MarkaName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="ModelName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="MarkaName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="CarFiyat" Type="Decimal" Precision="19" Scale="4" />
     <Property Name="CarPhoto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
   </EntityType>
-  <Association Name="FK_Car_Tablo_Marka_Tablo1">
-    <End Role="Marka_Tablo" Type="Self.Marka_Tablo" Multiplicity="0..1" />
+  <Association Name="FK_Car_Tablo_CarModelMarkaMapping">
+    <End Role="CarModelMarkaMapping" Type="Self.CarModelMarkaMapping" Multiplicity="0..1" />
     <End Role="Car_Tablo" Type="Self.Car_Tablo" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Marka_Tablo">
-        <PropertyRef Name="MarkaKod" />
+      <Principal Role="CarModelMarkaMapping">
+        <PropertyRef Name="CarKod" />
       </Principal>
       <Dependent Role="Car_Tablo">
-        <PropertyRef Name="CarMarkaKod" />
+        <PropertyRef Name="CarKod" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Car_Tablo_Model_Table">
+  <Association Name="FK_CarModelMarkaMapping_Model_Table">
     <End Role="Model_Table" Type="Self.Model_Table" Multiplicity="0..1" />
-    <End Role="Car_Tablo" Type="Self.Car_Tablo" Multiplicity="*" />
+    <End Role="CarModelMarkaMapping" Type="Self.CarModelMarkaMapping" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Model_Table">
         <PropertyRef Name="ModelKod" />
       </Principal>
-      <Dependent Role="Car_Tablo">
-        <PropertyRef Name="CarModelKod" />
+      <Dependent Role="CarModelMarkaMapping">
+        <PropertyRef Name="CarModel" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -183,9 +189,10 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="galeriEntities10" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="Entities1" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="BlokZinciri" EntityType="Self.BlokZinciri" />
     <EntitySet Name="Car_Tablo" EntityType="Self.Car_Tablo" />
+    <EntitySet Name="CarModelMarkaMapping" EntityType="Self.CarModelMarkaMapping" />
     <EntitySet Name="Marka_Tablo" EntityType="Self.Marka_Tablo" />
     <EntitySet Name="Model_Table" EntityType="Self.Model_Table" />
     <EntitySet Name="Roles_Tablo" EntityType="Self.Roles_Tablo" />
@@ -194,13 +201,13 @@
     <EntitySet Name="UserRoleMapping" EntityType="Self.UserRoleMapping" />
     <EntitySet Name="Users_Tablo" EntityType="Self.Users_Tablo" />
     <EntitySet Name="ShowCars" EntityType="Self.ShowCars" />
-    <AssociationSet Name="FK_Car_Tablo_Marka_Tablo1" Association="Self.FK_Car_Tablo_Marka_Tablo1">
-      <End Role="Marka_Tablo" EntitySet="Marka_Tablo" />
+    <AssociationSet Name="FK_Car_Tablo_CarModelMarkaMapping" Association="Self.FK_Car_Tablo_CarModelMarkaMapping">
+      <End Role="CarModelMarkaMapping" EntitySet="CarModelMarkaMapping" />
       <End Role="Car_Tablo" EntitySet="Car_Tablo" />
     </AssociationSet>
-    <AssociationSet Name="FK_Car_Tablo_Model_Table" Association="Self.FK_Car_Tablo_Model_Table">
+    <AssociationSet Name="FK_CarModelMarkaMapping_Model_Table" Association="Self.FK_CarModelMarkaMapping_Model_Table">
       <End Role="Model_Table" EntitySet="Model_Table" />
-      <End Role="Car_Tablo" EntitySet="Car_Tablo" />
+      <End Role="CarModelMarkaMapping" EntitySet="CarModelMarkaMapping" />
     </AssociationSet>
     <AssociationSet Name="FK_Model_Table_Marka_Tablo" Association="Self.FK_Model_Table_Marka_Tablo">
       <End Role="Marka_Tablo" EntitySet="Marka_Tablo" />

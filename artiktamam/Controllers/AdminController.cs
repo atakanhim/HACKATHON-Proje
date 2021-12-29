@@ -13,10 +13,10 @@ using artiktamam.BlockChainn;
 namespace artiktamam.Controllers
 {
 
-    [Authorize(Roles ="admin")]
+   // [Authorize(Roles ="admin")]
     public class AdminController : Controller
     {
-        private galeriEntities10 db = new galeriEntities10();
+        private Entities1 db = new Entities1();
         private DatabaseIslemleri dbIslem = new DatabaseIslemleri();
         SatinalinanlisteleViewModel model = new SatinalinanlisteleViewModel();
         // GET: admin
@@ -51,7 +51,7 @@ namespace artiktamam.Controllers
                 for (int i = 0; i < db.SatinalmaGecmisi_Table.Count(); i++)
                 {
                     var arabaid = arabalar[i];
-                    var Araba = dbIslem.getArabaWithId(arabaid);//araba bilgilerini sıra ile alıyoruz
+                    var Araba = dbIslem.GetArabaWithId(arabaid);//araba bilgilerini sıra ile alıyoruz
                     List<SatinalmaGecmisi_Table> SatinAlmaGecmisi = new List<SatinalmaGecmisi_Table>();
                     SatinAlmaGecmisi.Add(new SatinalmaGecmisi_Table()
                     {

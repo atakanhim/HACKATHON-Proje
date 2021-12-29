@@ -38,7 +38,7 @@ namespace artiktamam.Security
 
         public override string[] GetRolesForUser(string username)
         {
-            using (galeriEntities10 db = new galeriEntities10())
+            using (Entities1 db = new Entities1())
             {
 
                 var userRoles = (from user in db.Users_Tablo

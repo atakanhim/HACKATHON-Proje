@@ -4,23 +4,24 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="4a4a4167547b4b5ab2ad5809c6e44961" Name="Diagram1">
-        <EntityTypeShape EntityType="galeriModel.BlokZinciri" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="galeriModel.Car_Tablo" Width="1.5" PointX="7.25" PointY="8" IsExpanded="true" />
-        <EntityTypeShape EntityType="galeriModel.Marka_Tablo" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="galeriModel.Model_Table" Width="1.5" PointX="5" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="galeriModel.Roles_Tablo" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="galeriModel.SatinalmaGecmisi_Table" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="galeriModel.sysdiagrams" Width="1.5" PointX="6.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="galeriModel.UserRoleMapping" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="galeriModel.Users_Tablo" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="galeriModel.ShowCars" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
-        <AssociationConnector Association="galeriModel.FK_Car_Tablo_Marka_Tablo1" ManuallyRouted="false" />
-        <AssociationConnector Association="galeriModel.FK_Car_Tablo_Model_Table" ManuallyRouted="false" />
-        <AssociationConnector Association="galeriModel.FK_Model_Table_Marka_Tablo" ManuallyRouted="false" />
-        <AssociationConnector Association="galeriModel.FK_UserRoleMapping_Roles_Tablo" ManuallyRouted="false" />
-        <AssociationConnector Association="galeriModel.FK_UserRoleMapping_Users_Tablo" ManuallyRouted="false" />
-        <AssociationConnector Association="galeriModel.FK_UserRoleMapping_Users_Tablo1" ManuallyRouted="false" />
+      <Diagram DiagramId="1efe3d60e0f04a83977787c5b8d9568a" Name="Diagram1">
+        <EntityTypeShape EntityType="dataModel.BlokZinciri" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dataModel.Car_Tablo" Width="1.5" PointX="9.5" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="dataModel.CarModelMarkaMapping" Width="1.5" PointX="7.25" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dataModel.Marka_Tablo" Width="1.5" PointX="2.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dataModel.Model_Table" Width="1.5" PointX="5" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="dataModel.Roles_Tablo" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="dataModel.SatinalmaGecmisi_Table" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dataModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dataModel.UserRoleMapping" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dataModel.Users_Tablo" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="dataModel.ShowCars" Width="1.5" PointX="4.75" PointY="7.75" IsExpanded="true" />
+        <AssociationConnector Association="dataModel.FK_Car_Tablo_CarModelMarkaMapping" ManuallyRouted="false" />
+        <AssociationConnector Association="dataModel.FK_CarModelMarkaMapping_Model_Table" ManuallyRouted="false" />
+        <AssociationConnector Association="dataModel.FK_Model_Table_Marka_Tablo" ManuallyRouted="false" />
+        <AssociationConnector Association="dataModel.FK_UserRoleMapping_Roles_Tablo" ManuallyRouted="false" />
+        <AssociationConnector Association="dataModel.FK_UserRoleMapping_Users_Tablo" ManuallyRouted="false" />
+        <AssociationConnector Association="dataModel.FK_UserRoleMapping_Users_Tablo1" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

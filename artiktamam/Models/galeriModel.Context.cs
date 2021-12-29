@@ -13,10 +13,10 @@ namespace artiktamam.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class galeriEntities10 : DbContext
+    public partial class Entities1 : DbContext
     {
-        public galeriEntities10()
-            : base("name=galeriEntities10")
+        public Entities1()
+            : base("name=Entities1")
         {
         }
     
@@ -27,6 +27,7 @@ namespace artiktamam.Models
     
         public virtual DbSet<BlokZinciri> BlokZinciri { get; set; }
         public virtual DbSet<Car_Tablo> Car_Tablo { get; set; }
+        public virtual DbSet<CarModelMarkaMapping> CarModelMarkaMapping { get; set; }
         public virtual DbSet<Marka_Tablo> Marka_Tablo { get; set; }
         public virtual DbSet<Model_Table> Model_Table { get; set; }
         public virtual DbSet<Roles_Tablo> Roles_Tablo { get; set; }

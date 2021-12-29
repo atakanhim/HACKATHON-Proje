@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="galeriModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="dataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BlokZinciri">
           <Key>
             <PropertyRef Name="BlockId" />
@@ -26,10 +26,16 @@
             <PropertyRef Name="CarId" />
           </Key>
           <Property Name="CarId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CarMarkaKod" Type="int" />
-          <Property Name="CarModelKod" Type="int" />
+          <Property Name="CarKod" Type="int" />
           <Property Name="CarFiyat" Type="money" />
           <Property Name="CarPhoto" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="CarModelMarkaMapping">
+          <Key>
+            <PropertyRef Name="CarKod" />
+          </Key>
+          <Property Name="CarKod" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CarModel" Type="int" />
         </EntityType>
         <EntityType Name="Marka_Tablo">
           <Key>
@@ -95,38 +101,38 @@
           <Property Name="UserRoleId" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'galeri.dbo.ShowCars' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view '1702data.dbo.ShowCars' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ShowCars">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="MarkaName" Type="varchar" MaxLength="50" />
           <Property Name="ModelName" Type="varchar" MaxLength="50" />
+          <Property Name="MarkaName" Type="varchar" MaxLength="50" />
           <Property Name="CarFiyat" Type="money" />
           <Property Name="CarPhoto" Type="varchar(max)" />
         </EntityType>
-        <Association Name="FK_Car_Tablo_Marka_Tablo1">
-          <End Role="Marka_Tablo" Type="Self.Marka_Tablo" Multiplicity="0..1" />
+        <Association Name="FK_Car_Tablo_CarModelMarkaMapping">
+          <End Role="CarModelMarkaMapping" Type="Self.CarModelMarkaMapping" Multiplicity="0..1" />
           <End Role="Car_Tablo" Type="Self.Car_Tablo" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Marka_Tablo">
-              <PropertyRef Name="MarkaKod" />
+            <Principal Role="CarModelMarkaMapping">
+              <PropertyRef Name="CarKod" />
             </Principal>
             <Dependent Role="Car_Tablo">
-              <PropertyRef Name="CarMarkaKod" />
+              <PropertyRef Name="CarKod" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Car_Tablo_Model_Table">
+        <Association Name="FK_CarModelMarkaMapping_Model_Table">
           <End Role="Model_Table" Type="Self.Model_Table" Multiplicity="0..1" />
-          <End Role="Car_Tablo" Type="Self.Car_Tablo" Multiplicity="*" />
+          <End Role="CarModelMarkaMapping" Type="Self.CarModelMarkaMapping" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Model_Table">
               <PropertyRef Name="ModelKod" />
             </Principal>
-            <Dependent Role="Car_Tablo">
-              <PropertyRef Name="CarModelKod" />
+            <Dependent Role="CarModelMarkaMapping">
+              <PropertyRef Name="CarModel" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -178,9 +184,10 @@ warning 6002: The table/view 'galeri.dbo.ShowCars' does not have a primary key d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="galeriModelStoreContainer">
+        <EntityContainer Name="dataModelStoreContainer">
           <EntitySet Name="BlokZinciri" EntityType="Self.BlokZinciri" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Car_Tablo" EntityType="Self.Car_Tablo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CarModelMarkaMapping" EntityType="Self.CarModelMarkaMapping" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Marka_Tablo" EntityType="Self.Marka_Tablo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Model_Table" EntityType="Self.Model_Table" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles_Tablo" EntityType="Self.Roles_Tablo" Schema="dbo" store:Type="Tables" />
@@ -191,19 +198,19 @@ warning 6002: The table/view 'galeri.dbo.ShowCars' does not have a primary key d
           <EntitySet Name="ShowCars" EntityType="Self.ShowCars" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [ShowCars].[ID] AS [ID], 
-    [ShowCars].[MarkaName] AS [MarkaName], 
     [ShowCars].[ModelName] AS [ModelName], 
+    [ShowCars].[MarkaName] AS [MarkaName], 
     [ShowCars].[CarFiyat] AS [CarFiyat], 
     [ShowCars].[CarPhoto] AS [CarPhoto]
     FROM [dbo].[ShowCars] AS [ShowCars]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK_Car_Tablo_Marka_Tablo1" Association="Self.FK_Car_Tablo_Marka_Tablo1">
-            <End Role="Marka_Tablo" EntitySet="Marka_Tablo" />
+          <AssociationSet Name="FK_Car_Tablo_CarModelMarkaMapping" Association="Self.FK_Car_Tablo_CarModelMarkaMapping">
+            <End Role="CarModelMarkaMapping" EntitySet="CarModelMarkaMapping" />
             <End Role="Car_Tablo" EntitySet="Car_Tablo" />
           </AssociationSet>
-          <AssociationSet Name="FK_Car_Tablo_Model_Table" Association="Self.FK_Car_Tablo_Model_Table">
+          <AssociationSet Name="FK_CarModelMarkaMapping_Model_Table" Association="Self.FK_CarModelMarkaMapping_Model_Table">
             <End Role="Model_Table" EntitySet="Model_Table" />
-            <End Role="Car_Tablo" EntitySet="Car_Tablo" />
+            <End Role="CarModelMarkaMapping" EntitySet="CarModelMarkaMapping" />
           </AssociationSet>
           <AssociationSet Name="FK_Model_Table_Marka_Tablo" Association="Self.FK_Model_Table_Marka_Tablo">
             <End Role="Marka_Tablo" EntitySet="Marka_Tablo" />
@@ -226,7 +233,7 @@ warning 6002: The table/view 'galeri.dbo.ShowCars' does not have a primary key d
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="galeriModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="dataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="BlokZinciri">
           <Key>
             <PropertyRef Name="BlockId" />
@@ -248,12 +255,19 @@ warning 6002: The table/view 'galeri.dbo.ShowCars' does not have a primary key d
             <PropertyRef Name="CarId" />
           </Key>
           <Property Name="CarId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CarMarkaKod" Type="Int32" />
-          <Property Name="CarModelKod" Type="Int32" />
+          <Property Name="CarKod" Type="Int32" />
           <Property Name="CarFiyat" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="CarPhoto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Marka_Tablo" Relationship="Self.FK_Car_Tablo_Marka_Tablo1" FromRole="Car_Tablo" ToRole="Marka_Tablo" />
-          <NavigationProperty Name="Model_Table" Relationship="Self.FK_Car_Tablo_Model_Table" FromRole="Car_Tablo" ToRole="Model_Table" />
+          <NavigationProperty Name="CarModelMarkaMapping" Relationship="Self.FK_Car_Tablo_CarModelMarkaMapping" FromRole="Car_Tablo" ToRole="CarModelMarkaMapping" />
+        </EntityType>
+        <EntityType Name="CarModelMarkaMapping">
+          <Key>
+            <PropertyRef Name="CarKod" />
+          </Key>
+          <Property Name="CarKod" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CarModel" Type="Int32" />
+          <NavigationProperty Name="Car_Tablo" Relationship="Self.FK_Car_Tablo_CarModelMarkaMapping" FromRole="CarModelMarkaMapping" ToRole="Car_Tablo" />
+          <NavigationProperty Name="Model_Table" Relationship="Self.FK_CarModelMarkaMapping_Model_Table" FromRole="CarModelMarkaMapping" ToRole="Model_Table" />
         </EntityType>
         <EntityType Name="Marka_Tablo">
           <Key>
@@ -261,7 +275,6 @@ warning 6002: The table/view 'galeri.dbo.ShowCars' does not have a primary key d
           </Key>
           <Property Name="MarkaKod" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MarkaName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Car_Tablo" Relationship="Self.FK_Car_Tablo_Marka_Tablo1" FromRole="Marka_Tablo" ToRole="Car_Tablo" />
           <NavigationProperty Name="Model_Table" Relationship="Self.FK_Model_Table_Marka_Tablo" FromRole="Marka_Tablo" ToRole="Model_Table" />
         </EntityType>
         <EntityType Name="Model_Table">
@@ -271,7 +284,7 @@ warning 6002: The table/view 'galeri.dbo.ShowCars' does not have a primary key d
           <Property Name="ModelKod" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MarkaKod" Type="Int32" />
           <Property Name="ModelName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Car_Tablo" Relationship="Self.FK_Car_Tablo_Model_Table" FromRole="Model_Table" ToRole="Car_Tablo" />
+          <NavigationProperty Name="CarModelMarkaMapping" Relationship="Self.FK_CarModelMarkaMapping_Model_Table" FromRole="Model_Table" ToRole="CarModelMarkaMapping" />
           <NavigationProperty Name="Marka_Tablo" Relationship="Self.FK_Model_Table_Marka_Tablo" FromRole="Model_Table" ToRole="Marka_Tablo" />
         </EntityType>
         <EntityType Name="Roles_Tablo">
@@ -333,32 +346,32 @@ warning 6002: The table/view 'galeri.dbo.ShowCars' does not have a primary key d
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="MarkaName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ModelName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MarkaName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CarFiyat" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="CarPhoto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
-        <Association Name="FK_Car_Tablo_Marka_Tablo1">
-          <End Role="Marka_Tablo" Type="Self.Marka_Tablo" Multiplicity="0..1" />
+        <Association Name="FK_Car_Tablo_CarModelMarkaMapping">
+          <End Role="CarModelMarkaMapping" Type="Self.CarModelMarkaMapping" Multiplicity="0..1" />
           <End Role="Car_Tablo" Type="Self.Car_Tablo" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Marka_Tablo">
-              <PropertyRef Name="MarkaKod" />
+            <Principal Role="CarModelMarkaMapping">
+              <PropertyRef Name="CarKod" />
             </Principal>
             <Dependent Role="Car_Tablo">
-              <PropertyRef Name="CarMarkaKod" />
+              <PropertyRef Name="CarKod" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Car_Tablo_Model_Table">
+        <Association Name="FK_CarModelMarkaMapping_Model_Table">
           <End Role="Model_Table" Type="Self.Model_Table" Multiplicity="0..1" />
-          <End Role="Car_Tablo" Type="Self.Car_Tablo" Multiplicity="*" />
+          <End Role="CarModelMarkaMapping" Type="Self.CarModelMarkaMapping" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Model_Table">
               <PropertyRef Name="ModelKod" />
             </Principal>
-            <Dependent Role="Car_Tablo">
-              <PropertyRef Name="CarModelKod" />
+            <Dependent Role="CarModelMarkaMapping">
+              <PropertyRef Name="CarModel" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -410,9 +423,10 @@ warning 6002: The table/view 'galeri.dbo.ShowCars' does not have a primary key d
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="galeriEntities10" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="Entities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="BlokZinciri" EntityType="Self.BlokZinciri" />
           <EntitySet Name="Car_Tablo" EntityType="Self.Car_Tablo" />
+          <EntitySet Name="CarModelMarkaMapping" EntityType="Self.CarModelMarkaMapping" />
           <EntitySet Name="Marka_Tablo" EntityType="Self.Marka_Tablo" />
           <EntitySet Name="Model_Table" EntityType="Self.Model_Table" />
           <EntitySet Name="Roles_Tablo" EntityType="Self.Roles_Tablo" />
@@ -421,13 +435,13 @@ warning 6002: The table/view 'galeri.dbo.ShowCars' does not have a primary key d
           <EntitySet Name="UserRoleMapping" EntityType="Self.UserRoleMapping" />
           <EntitySet Name="Users_Tablo" EntityType="Self.Users_Tablo" />
           <EntitySet Name="ShowCars" EntityType="Self.ShowCars" />
-          <AssociationSet Name="FK_Car_Tablo_Marka_Tablo1" Association="Self.FK_Car_Tablo_Marka_Tablo1">
-            <End Role="Marka_Tablo" EntitySet="Marka_Tablo" />
+          <AssociationSet Name="FK_Car_Tablo_CarModelMarkaMapping" Association="Self.FK_Car_Tablo_CarModelMarkaMapping">
+            <End Role="CarModelMarkaMapping" EntitySet="CarModelMarkaMapping" />
             <End Role="Car_Tablo" EntitySet="Car_Tablo" />
           </AssociationSet>
-          <AssociationSet Name="FK_Car_Tablo_Model_Table" Association="Self.FK_Car_Tablo_Model_Table">
+          <AssociationSet Name="FK_CarModelMarkaMapping_Model_Table" Association="Self.FK_CarModelMarkaMapping_Model_Table">
             <End Role="Model_Table" EntitySet="Model_Table" />
-            <End Role="Car_Tablo" EntitySet="Car_Tablo" />
+            <End Role="CarModelMarkaMapping" EntitySet="CarModelMarkaMapping" />
           </AssociationSet>
           <AssociationSet Name="FK_Model_Table_Marka_Tablo" Association="Self.FK_Model_Table_Marka_Tablo">
             <End Role="Marka_Tablo" EntitySet="Marka_Tablo" />
@@ -451,9 +465,9 @@ warning 6002: The table/view 'galeri.dbo.ShowCars' does not have a primary key d
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="galeriModelStoreContainer" CdmEntityContainer="galeriEntities10">
+        <EntityContainerMapping StorageEntityContainer="dataModelStoreContainer" CdmEntityContainer="Entities1">
           <EntitySetMapping Name="BlokZinciri">
-            <EntityTypeMapping TypeName="galeriModel.BlokZinciri">
+            <EntityTypeMapping TypeName="dataModel.BlokZinciri">
               <MappingFragment StoreEntitySet="BlokZinciri">
                 <ScalarProperty Name="BlockId" ColumnName="BlockId" />
                 <ScalarProperty Name="MusteriAdi" ColumnName="MusteriAdi" />
@@ -470,18 +484,25 @@ warning 6002: The table/view 'galeri.dbo.ShowCars' does not have a primary key d
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Car_Tablo">
-            <EntityTypeMapping TypeName="galeriModel.Car_Tablo">
+            <EntityTypeMapping TypeName="dataModel.Car_Tablo">
               <MappingFragment StoreEntitySet="Car_Tablo">
                 <ScalarProperty Name="CarId" ColumnName="CarId" />
-                <ScalarProperty Name="CarMarkaKod" ColumnName="CarMarkaKod" />
-                <ScalarProperty Name="CarModelKod" ColumnName="CarModelKod" />
+                <ScalarProperty Name="CarKod" ColumnName="CarKod" />
                 <ScalarProperty Name="CarFiyat" ColumnName="CarFiyat" />
                 <ScalarProperty Name="CarPhoto" ColumnName="CarPhoto" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="CarModelMarkaMapping">
+            <EntityTypeMapping TypeName="dataModel.CarModelMarkaMapping">
+              <MappingFragment StoreEntitySet="CarModelMarkaMapping">
+                <ScalarProperty Name="CarKod" ColumnName="CarKod" />
+                <ScalarProperty Name="CarModel" ColumnName="CarModel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Marka_Tablo">
-            <EntityTypeMapping TypeName="galeriModel.Marka_Tablo">
+            <EntityTypeMapping TypeName="dataModel.Marka_Tablo">
               <MappingFragment StoreEntitySet="Marka_Tablo">
                 <ScalarProperty Name="MarkaKod" ColumnName="MarkaKod" />
                 <ScalarProperty Name="MarkaName" ColumnName="MarkaName" />
@@ -489,7 +510,7 @@ warning 6002: The table/view 'galeri.dbo.ShowCars' does not have a primary key d
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Model_Table">
-            <EntityTypeMapping TypeName="galeriModel.Model_Table">
+            <EntityTypeMapping TypeName="dataModel.Model_Table">
               <MappingFragment StoreEntitySet="Model_Table">
                 <ScalarProperty Name="ModelKod" ColumnName="ModelKod" />
                 <ScalarProperty Name="MarkaKod" ColumnName="MarkaKod" />
@@ -498,7 +519,7 @@ warning 6002: The table/view 'galeri.dbo.ShowCars' does not have a primary key d
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Roles_Tablo">
-            <EntityTypeMapping TypeName="galeriModel.Roles_Tablo">
+            <EntityTypeMapping TypeName="dataModel.Roles_Tablo">
               <MappingFragment StoreEntitySet="Roles_Tablo">
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
                 <ScalarProperty Name="RoleName" ColumnName="RoleName" />
@@ -506,7 +527,7 @@ warning 6002: The table/view 'galeri.dbo.ShowCars' does not have a primary key d
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SatinalmaGecmisi_Table">
-            <EntityTypeMapping TypeName="galeriModel.SatinalmaGecmisi_Table">
+            <EntityTypeMapping TypeName="dataModel.SatinalmaGecmisi_Table">
               <MappingFragment StoreEntitySet="SatinalmaGecmisi_Table">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="MusteriAdi" ColumnName="MusteriAdi" />
@@ -519,7 +540,7 @@ warning 6002: The table/view 'galeri.dbo.ShowCars' does not have a primary key d
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="galeriModel.sysdiagrams">
+            <EntityTypeMapping TypeName="dataModel.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -530,7 +551,7 @@ warning 6002: The table/view 'galeri.dbo.ShowCars' does not have a primary key d
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserRoleMapping">
-            <EntityTypeMapping TypeName="galeriModel.UserRoleMapping">
+            <EntityTypeMapping TypeName="dataModel.UserRoleMapping">
               <MappingFragment StoreEntitySet="UserRoleMapping">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -539,7 +560,7 @@ warning 6002: The table/view 'galeri.dbo.ShowCars' does not have a primary key d
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users_Tablo">
-            <EntityTypeMapping TypeName="galeriModel.Users_Tablo">
+            <EntityTypeMapping TypeName="dataModel.Users_Tablo">
               <MappingFragment StoreEntitySet="Users_Tablo">
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
@@ -551,11 +572,11 @@ warning 6002: The table/view 'galeri.dbo.ShowCars' does not have a primary key d
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ShowCars">
-            <EntityTypeMapping TypeName="galeriModel.ShowCars">
+            <EntityTypeMapping TypeName="dataModel.ShowCars">
               <MappingFragment StoreEntitySet="ShowCars">
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="MarkaName" ColumnName="MarkaName" />
                 <ScalarProperty Name="ModelName" ColumnName="ModelName" />
+                <ScalarProperty Name="MarkaName" ColumnName="MarkaName" />
                 <ScalarProperty Name="CarFiyat" ColumnName="CarFiyat" />
                 <ScalarProperty Name="CarPhoto" ColumnName="CarPhoto" />
               </MappingFragment>

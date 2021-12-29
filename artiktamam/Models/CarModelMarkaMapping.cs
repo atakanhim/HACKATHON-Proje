@@ -12,20 +12,19 @@ namespace artiktamam.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Model_Table
+    public partial class CarModelMarkaMapping
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Model_Table()
+        public CarModelMarkaMapping()
         {
-            this.CarModelMarkaMapping = new HashSet<CarModelMarkaMapping>();
+            this.Car_Tablo = new HashSet<Car_Tablo>();
         }
     
-        public int ModelKod { get; set; }
-        public Nullable<int> MarkaKod { get; set; }
-        public string ModelName { get; set; }
+        public int CarKod { get; set; }
+        public Nullable<int> CarModel { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CarModelMarkaMapping> CarModelMarkaMapping { get; set; }
-        public virtual Marka_Tablo Marka_Tablo { get; set; }
+        public virtual ICollection<Car_Tablo> Car_Tablo { get; set; }
+        public virtual Model_Table Model_Table { get; set; }
     }
 }

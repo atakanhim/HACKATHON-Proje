@@ -142,6 +142,9 @@
     <Compile Include="Models\BlokZinciri.cs">
       <DependentUpon>galeriModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CarModelMarkaMapping.cs">
+      <DependentUpon>galeriModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Car_Tablo.cs">
       <DependentUpon>galeriModel.tt</DependentUpon>
     </Compile>
