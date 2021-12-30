@@ -10,7 +10,7 @@ namespace artiktamam.Database
 {
     public class DatabaseIslemleri
     {
-        private projeDataEntities db = new projeDataEntities();
+        private hackathonProjeEntities db = new hackathonProjeEntities();
 
         public Users_Tablo GetUser(string username)
         {

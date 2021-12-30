@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="dataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="projeDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BlokZinciri">
           <Key>
             <PropertyRef Name="BlockId" />
@@ -101,7 +101,18 @@
           <Property Name="UserRoleId" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view '1702data.dbo.ShowCars' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6013: The table/view 'projeData.dbo.MarkaModelSayisi1DenFazla' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="MarkaModelSayisi1DenFazla">
+          <Property Name="MarkaName" Type="varchar" MaxLength="50" />
+          <Property Name="adet" Type="int" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'projeData.dbo.ReturnUserRoleWithUserName' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="ReturnUserRoleWithUserName">
+          <Property Name="RoleName" Type="varchar" MaxLength="50" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'projeData.dbo.ShowCars' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ShowCars">
           <Key>
             <PropertyRef Name="ID" />
@@ -111,6 +122,20 @@ warning 6002: The table/view '1702data.dbo.ShowCars' does not have a primary key
           <Property Name="MarkaName" Type="varchar" MaxLength="50" />
           <Property Name="CarFiyat" Type="money" />
           <Property Name="CarPhoto" Type="varchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'projeData.dbo.TodaysOrders' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TodaysOrders">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MusteriAdi" Type="varchar" MaxLength="50" />
+          <Property Name="ArabaninMarkasi" Type="varchar" MaxLength="50" />
+          <Property Name="ArabaninModeli" Type="varchar" MaxLength="50" />
+          <Property Name="ArabaninFiyati" Type="int" />
+          <Property Name="SiparisKodu" Type="int" />
+          <Property Name="SatinAlmaZamani" Type="datetime" />
         </EntityType>
         <Association Name="FK_Car_Tablo_CarModelMarkaMapping">
           <End Role="CarModelMarkaMapping" Type="Self.CarModelMarkaMapping" Multiplicity="0..1" />
@@ -184,7 +209,62 @@ warning 6002: The table/view '1702data.dbo.ShowCars' does not have a primary key
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="dataModelStoreContainer">
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="getModelNameWithCarId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="carkod" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="MarkaName" Type="varchar" MaxLength="50" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="siparisBul" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sipariskod" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sonSatinAlinanlar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="yetkiBul" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userId" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="RoleName" Type="varchar" MaxLength="50" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <EntityContainer Name="projeDataModelStoreContainer">
           <EntitySet Name="BlokZinciri" EntityType="Self.BlokZinciri" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Car_Tablo" EntityType="Self.Car_Tablo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CarModelMarkaMapping" EntityType="Self.CarModelMarkaMapping" Schema="dbo" store:Type="Tables" />
@@ -203,6 +283,17 @@ warning 6002: The table/view '1702data.dbo.ShowCars' does not have a primary key
     [ShowCars].[CarFiyat] AS [CarFiyat], 
     [ShowCars].[CarPhoto] AS [CarPhoto]
     FROM [dbo].[ShowCars] AS [ShowCars]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="TodaysOrders" EntityType="Self.TodaysOrders" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TodaysOrders].[Id] AS [Id], 
+    [TodaysOrders].[MusteriAdi] AS [MusteriAdi], 
+    [TodaysOrders].[ArabaninMarkasi] AS [ArabaninMarkasi], 
+    [TodaysOrders].[ArabaninModeli] AS [ArabaninModeli], 
+    [TodaysOrders].[ArabaninFiyati] AS [ArabaninFiyati], 
+    [TodaysOrders].[SiparisKodu] AS [SiparisKodu], 
+    [TodaysOrders].[SatinAlmaZamani] AS [SatinAlmaZamani]
+    FROM [dbo].[TodaysOrders] AS [TodaysOrders]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_Car_Tablo_CarModelMarkaMapping" Association="Self.FK_Car_Tablo_CarModelMarkaMapping">
             <End Role="CarModelMarkaMapping" EntitySet="CarModelMarkaMapping" />
@@ -233,7 +324,13 @@ warning 6002: The table/view '1702data.dbo.ShowCars' does not have a primary key
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="dataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="projeDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <ComplexType Name="getModelNameWithCarId_Result">
+          <Property Name="MarkaName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </ComplexType>
+        <ComplexType Name="yetkiBul_Result">
+          <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </ComplexType>
         <EntityType Name="BlokZinciri">
           <Key>
             <PropertyRef Name="BlockId" />
@@ -351,6 +448,18 @@ warning 6002: The table/view '1702data.dbo.ShowCars' does not have a primary key
           <Property Name="CarFiyat" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="CarPhoto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="TodaysOrders">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MusteriAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ArabaninMarkasi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ArabaninModeli" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ArabaninFiyati" Type="Int32" />
+          <Property Name="SiparisKodu" Type="Int32" />
+          <Property Name="SatinAlmaZamani" Type="DateTime" Precision="3" />
+        </EntityType>
         <Association Name="FK_Car_Tablo_CarModelMarkaMapping">
           <End Role="CarModelMarkaMapping" Type="Self.CarModelMarkaMapping" Multiplicity="0..1" />
           <End Role="Car_Tablo" Type="Self.Car_Tablo" Multiplicity="*" />
@@ -423,7 +532,7 @@ warning 6002: The table/view '1702data.dbo.ShowCars' does not have a primary key
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Entities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="hackathonProjeEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="BlokZinciri" EntityType="Self.BlokZinciri" />
           <EntitySet Name="Car_Tablo" EntityType="Self.Car_Tablo" />
           <EntitySet Name="CarModelMarkaMapping" EntityType="Self.CarModelMarkaMapping" />
@@ -435,6 +544,7 @@ warning 6002: The table/view '1702data.dbo.ShowCars' does not have a primary key
           <EntitySet Name="UserRoleMapping" EntityType="Self.UserRoleMapping" />
           <EntitySet Name="Users_Tablo" EntityType="Self.Users_Tablo" />
           <EntitySet Name="ShowCars" EntityType="Self.ShowCars" />
+          <EntitySet Name="TodaysOrders" EntityType="Self.TodaysOrders" />
           <AssociationSet Name="FK_Car_Tablo_CarModelMarkaMapping" Association="Self.FK_Car_Tablo_CarModelMarkaMapping">
             <End Role="CarModelMarkaMapping" EntitySet="CarModelMarkaMapping" />
             <End Role="Car_Tablo" EntitySet="Car_Tablo" />
@@ -459,15 +569,79 @@ warning 6002: The table/view '1702data.dbo.ShowCars' does not have a primary key
             <End Role="Users_Tablo" EntitySet="Users_Tablo" />
             <End Role="UserRoleMapping" EntitySet="UserRoleMapping" />
           </AssociationSet>
+          <FunctionImport Name="getModelNameWithCarId" IsComposable="true" ReturnType="Collection(projeDataModel.getModelNameWithCarId_Result)">
+            <Parameter Name="carkod" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="yetkiBul" IsComposable="true" ReturnType="Collection(projeDataModel.yetkiBul_Result)">
+            <Parameter Name="userId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="siparisBul" ReturnType="Collection(projeDataModel.siparisBul_Result)">
+            <Parameter Name="sipariskod" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sonSatinAlinanlar" ReturnType="Collection(projeDataModel.sonSatinAlinanlar_Result)" />
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(projeDataModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(projeDataModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
         </EntityContainer>
+        <ComplexType Name="siparisBul_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="MusteriAdi" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ArabaninMarkasi" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ArabaninModeli" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="ArabaninFiyati" Nullable="true" />
+          <Property Type="Int32" Name="SiparisKodu" Nullable="true" />
+          <Property Type="DateTime" Name="SatinAlmaZamani" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="sonSatinAlinanlar_Result">
+          <Property Type="String" Name="MusteriAdi" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="adetSayisi" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="dataModelStoreContainer" CdmEntityContainer="Entities1">
+        <EntityContainerMapping StorageEntityContainer="projeDataModelStoreContainer" CdmEntityContainer="hackathonProjeEntities">
           <EntitySetMapping Name="BlokZinciri">
-            <EntityTypeMapping TypeName="dataModel.BlokZinciri">
+            <EntityTypeMapping TypeName="projeDataModel.BlokZinciri">
               <MappingFragment StoreEntitySet="BlokZinciri">
                 <ScalarProperty Name="BlockId" ColumnName="BlockId" />
                 <ScalarProperty Name="MusteriAdi" ColumnName="MusteriAdi" />
@@ -484,7 +658,7 @@ warning 6002: The table/view '1702data.dbo.ShowCars' does not have a primary key
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Car_Tablo">
-            <EntityTypeMapping TypeName="dataModel.Car_Tablo">
+            <EntityTypeMapping TypeName="projeDataModel.Car_Tablo">
               <MappingFragment StoreEntitySet="Car_Tablo">
                 <ScalarProperty Name="CarId" ColumnName="CarId" />
                 <ScalarProperty Name="CarKod" ColumnName="CarKod" />
@@ -494,7 +668,7 @@ warning 6002: The table/view '1702data.dbo.ShowCars' does not have a primary key
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CarModelMarkaMapping">
-            <EntityTypeMapping TypeName="dataModel.CarModelMarkaMapping">
+            <EntityTypeMapping TypeName="projeDataModel.CarModelMarkaMapping">
               <MappingFragment StoreEntitySet="CarModelMarkaMapping">
                 <ScalarProperty Name="CarKod" ColumnName="CarKod" />
                 <ScalarProperty Name="CarModel" ColumnName="CarModel" />
@@ -502,7 +676,7 @@ warning 6002: The table/view '1702data.dbo.ShowCars' does not have a primary key
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Marka_Tablo">
-            <EntityTypeMapping TypeName="dataModel.Marka_Tablo">
+            <EntityTypeMapping TypeName="projeDataModel.Marka_Tablo">
               <MappingFragment StoreEntitySet="Marka_Tablo">
                 <ScalarProperty Name="MarkaKod" ColumnName="MarkaKod" />
                 <ScalarProperty Name="MarkaName" ColumnName="MarkaName" />
@@ -510,7 +684,7 @@ warning 6002: The table/view '1702data.dbo.ShowCars' does not have a primary key
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Model_Table">
-            <EntityTypeMapping TypeName="dataModel.Model_Table">
+            <EntityTypeMapping TypeName="projeDataModel.Model_Table">
               <MappingFragment StoreEntitySet="Model_Table">
                 <ScalarProperty Name="ModelKod" ColumnName="ModelKod" />
                 <ScalarProperty Name="MarkaKod" ColumnName="MarkaKod" />
@@ -519,7 +693,7 @@ warning 6002: The table/view '1702data.dbo.ShowCars' does not have a primary key
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Roles_Tablo">
-            <EntityTypeMapping TypeName="dataModel.Roles_Tablo">
+            <EntityTypeMapping TypeName="projeDataModel.Roles_Tablo">
               <MappingFragment StoreEntitySet="Roles_Tablo">
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
                 <ScalarProperty Name="RoleName" ColumnName="RoleName" />
@@ -527,7 +701,7 @@ warning 6002: The table/view '1702data.dbo.ShowCars' does not have a primary key
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SatinalmaGecmisi_Table">
-            <EntityTypeMapping TypeName="dataModel.SatinalmaGecmisi_Table">
+            <EntityTypeMapping TypeName="projeDataModel.SatinalmaGecmisi_Table">
               <MappingFragment StoreEntitySet="SatinalmaGecmisi_Table">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="MusteriAdi" ColumnName="MusteriAdi" />
@@ -540,7 +714,7 @@ warning 6002: The table/view '1702data.dbo.ShowCars' does not have a primary key
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="dataModel.sysdiagrams">
+            <EntityTypeMapping TypeName="projeDataModel.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -551,7 +725,7 @@ warning 6002: The table/view '1702data.dbo.ShowCars' does not have a primary key
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserRoleMapping">
-            <EntityTypeMapping TypeName="dataModel.UserRoleMapping">
+            <EntityTypeMapping TypeName="projeDataModel.UserRoleMapping">
               <MappingFragment StoreEntitySet="UserRoleMapping">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -560,7 +734,7 @@ warning 6002: The table/view '1702data.dbo.ShowCars' does not have a primary key
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users_Tablo">
-            <EntityTypeMapping TypeName="dataModel.Users_Tablo">
+            <EntityTypeMapping TypeName="projeDataModel.Users_Tablo">
               <MappingFragment StoreEntitySet="Users_Tablo">
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
@@ -572,7 +746,7 @@ warning 6002: The table/view '1702data.dbo.ShowCars' does not have a primary key
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ShowCars">
-            <EntityTypeMapping TypeName="dataModel.ShowCars">
+            <EntityTypeMapping TypeName="projeDataModel.ShowCars">
               <MappingFragment StoreEntitySet="ShowCars">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ModelName" ColumnName="ModelName" />
@@ -582,6 +756,78 @@ warning 6002: The table/view '1702data.dbo.ShowCars' does not have a primary key
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="TodaysOrders">
+            <EntityTypeMapping TypeName="projeDataModel.TodaysOrders">
+              <MappingFragment StoreEntitySet="TodaysOrders">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MusteriAdi" ColumnName="MusteriAdi" />
+                <ScalarProperty Name="ArabaninMarkasi" ColumnName="ArabaninMarkasi" />
+                <ScalarProperty Name="ArabaninModeli" ColumnName="ArabaninModeli" />
+                <ScalarProperty Name="ArabaninFiyati" ColumnName="ArabaninFiyati" />
+                <ScalarProperty Name="SiparisKodu" ColumnName="SiparisKodu" />
+                <ScalarProperty Name="SatinAlmaZamani" ColumnName="SatinAlmaZamani" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionName="projeDataModel.Store.getModelNameWithCarId" FunctionImportName="getModelNameWithCarId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="projeDataModel.getModelNameWithCarId_Result">
+                <ScalarProperty Name="MarkaName" ColumnName="MarkaName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="projeDataModel.Store.yetkiBul" FunctionImportName="yetkiBul">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="projeDataModel.yetkiBul_Result">
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="siparisBul" FunctionName="projeDataModel.Store.siparisBul">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="projeDataModel.siparisBul_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MusteriAdi" ColumnName="MusteriAdi" />
+                <ScalarProperty Name="ArabaninMarkasi" ColumnName="ArabaninMarkasi" />
+                <ScalarProperty Name="ArabaninModeli" ColumnName="ArabaninModeli" />
+                <ScalarProperty Name="ArabaninFiyati" ColumnName="ArabaninFiyati" />
+                <ScalarProperty Name="SiparisKodu" ColumnName="SiparisKodu" />
+                <ScalarProperty Name="SatinAlmaZamani" ColumnName="SatinAlmaZamani" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sonSatinAlinanlar" FunctionName="projeDataModel.Store.sonSatinAlinanlar">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="projeDataModel.sonSatinAlinanlar_Result">
+                <ScalarProperty Name="MusteriAdi" ColumnName="MusteriAdi" />
+                <ScalarProperty Name="adetSayisi" ColumnName="adetSayisi" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="projeDataModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="projeDataModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="projeDataModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="projeDataModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="projeDataModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="projeDataModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="projeDataModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="projeDataModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="projeDataModel.Store.sp_upgraddiagrams" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

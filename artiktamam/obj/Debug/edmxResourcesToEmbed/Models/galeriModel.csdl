@@ -1,5 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="dataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+<Schema Namespace="projeDataModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <ComplexType Name="getModelNameWithCarId_Result">
+    <Property Name="MarkaName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </ComplexType>
+  <ComplexType Name="yetkiBul_Result">
+    <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </ComplexType>
   <EntityType Name="BlokZinciri">
     <Key>
       <PropertyRef Name="BlockId" />
@@ -117,6 +123,18 @@
     <Property Name="CarFiyat" Type="Decimal" Precision="19" Scale="4" />
     <Property Name="CarPhoto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
   </EntityType>
+  <EntityType Name="TodaysOrders">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MusteriAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ArabaninMarkasi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ArabaninModeli" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ArabaninFiyati" Type="Int32" />
+    <Property Name="SiparisKodu" Type="Int32" />
+    <Property Name="SatinAlmaZamani" Type="DateTime" Precision="3" />
+  </EntityType>
   <Association Name="FK_Car_Tablo_CarModelMarkaMapping">
     <End Role="CarModelMarkaMapping" Type="Self.CarModelMarkaMapping" Multiplicity="0..1" />
     <End Role="Car_Tablo" Type="Self.Car_Tablo" Multiplicity="*" />
@@ -189,7 +207,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="Entities1" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="hackathonProjeEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="BlokZinciri" EntityType="Self.BlokZinciri" />
     <EntitySet Name="Car_Tablo" EntityType="Self.Car_Tablo" />
     <EntitySet Name="CarModelMarkaMapping" EntityType="Self.CarModelMarkaMapping" />
@@ -201,6 +219,7 @@
     <EntitySet Name="UserRoleMapping" EntityType="Self.UserRoleMapping" />
     <EntitySet Name="Users_Tablo" EntityType="Self.Users_Tablo" />
     <EntitySet Name="ShowCars" EntityType="Self.ShowCars" />
+    <EntitySet Name="TodaysOrders" EntityType="Self.TodaysOrders" />
     <AssociationSet Name="FK_Car_Tablo_CarModelMarkaMapping" Association="Self.FK_Car_Tablo_CarModelMarkaMapping">
       <End Role="CarModelMarkaMapping" EntitySet="CarModelMarkaMapping" />
       <End Role="Car_Tablo" EntitySet="Car_Tablo" />
@@ -225,5 +244,69 @@
       <End Role="Users_Tablo" EntitySet="Users_Tablo" />
       <End Role="UserRoleMapping" EntitySet="UserRoleMapping" />
     </AssociationSet>
+    <FunctionImport Name="getModelNameWithCarId" IsComposable="true" ReturnType="Collection(projeDataModel.getModelNameWithCarId_Result)">
+      <Parameter Name="carkod" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="yetkiBul" IsComposable="true" ReturnType="Collection(projeDataModel.yetkiBul_Result)">
+      <Parameter Name="userId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="siparisBul" ReturnType="Collection(projeDataModel.siparisBul_Result)">
+      <Parameter Name="sipariskod" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sonSatinAlinanlar" ReturnType="Collection(projeDataModel.sonSatinAlinanlar_Result)" />
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(projeDataModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(projeDataModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
   </EntityContainer>
+  <ComplexType Name="siparisBul_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="MusteriAdi" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="ArabaninMarkasi" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="ArabaninModeli" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="ArabaninFiyati" Nullable="true" />
+    <Property Type="Int32" Name="SiparisKodu" Nullable="true" />
+    <Property Type="DateTime" Name="SatinAlmaZamani" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="sonSatinAlinanlar_Result">
+    <Property Type="String" Name="MusteriAdi" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="adetSayisi" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
 </Schema>

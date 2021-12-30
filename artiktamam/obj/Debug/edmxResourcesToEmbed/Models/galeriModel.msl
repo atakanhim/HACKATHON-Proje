@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="dataModelStoreContainer" CdmEntityContainer="Entities1">
+  <EntityContainerMapping StorageEntityContainer="projeDataModelStoreContainer" CdmEntityContainer="hackathonProjeEntities">
     <EntitySetMapping Name="BlokZinciri">
-      <EntityTypeMapping TypeName="dataModel.BlokZinciri">
+      <EntityTypeMapping TypeName="projeDataModel.BlokZinciri">
         <MappingFragment StoreEntitySet="BlokZinciri">
           <ScalarProperty Name="BlockId" ColumnName="BlockId" />
           <ScalarProperty Name="MusteriAdi" ColumnName="MusteriAdi" />
@@ -19,7 +19,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Car_Tablo">
-      <EntityTypeMapping TypeName="dataModel.Car_Tablo">
+      <EntityTypeMapping TypeName="projeDataModel.Car_Tablo">
         <MappingFragment StoreEntitySet="Car_Tablo">
           <ScalarProperty Name="CarId" ColumnName="CarId" />
           <ScalarProperty Name="CarKod" ColumnName="CarKod" />
@@ -29,7 +29,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="CarModelMarkaMapping">
-      <EntityTypeMapping TypeName="dataModel.CarModelMarkaMapping">
+      <EntityTypeMapping TypeName="projeDataModel.CarModelMarkaMapping">
         <MappingFragment StoreEntitySet="CarModelMarkaMapping">
           <ScalarProperty Name="CarKod" ColumnName="CarKod" />
           <ScalarProperty Name="CarModel" ColumnName="CarModel" />
@@ -37,7 +37,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Marka_Tablo">
-      <EntityTypeMapping TypeName="dataModel.Marka_Tablo">
+      <EntityTypeMapping TypeName="projeDataModel.Marka_Tablo">
         <MappingFragment StoreEntitySet="Marka_Tablo">
           <ScalarProperty Name="MarkaKod" ColumnName="MarkaKod" />
           <ScalarProperty Name="MarkaName" ColumnName="MarkaName" />
@@ -45,7 +45,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Model_Table">
-      <EntityTypeMapping TypeName="dataModel.Model_Table">
+      <EntityTypeMapping TypeName="projeDataModel.Model_Table">
         <MappingFragment StoreEntitySet="Model_Table">
           <ScalarProperty Name="ModelKod" ColumnName="ModelKod" />
           <ScalarProperty Name="MarkaKod" ColumnName="MarkaKod" />
@@ -54,7 +54,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Roles_Tablo">
-      <EntityTypeMapping TypeName="dataModel.Roles_Tablo">
+      <EntityTypeMapping TypeName="projeDataModel.Roles_Tablo">
         <MappingFragment StoreEntitySet="Roles_Tablo">
           <ScalarProperty Name="RoleId" ColumnName="RoleId" />
           <ScalarProperty Name="RoleName" ColumnName="RoleName" />
@@ -62,7 +62,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="SatinalmaGecmisi_Table">
-      <EntityTypeMapping TypeName="dataModel.SatinalmaGecmisi_Table">
+      <EntityTypeMapping TypeName="projeDataModel.SatinalmaGecmisi_Table">
         <MappingFragment StoreEntitySet="SatinalmaGecmisi_Table">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="MusteriAdi" ColumnName="MusteriAdi" />
@@ -75,7 +75,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="sysdiagrams">
-      <EntityTypeMapping TypeName="dataModel.sysdiagrams">
+      <EntityTypeMapping TypeName="projeDataModel.sysdiagrams">
         <MappingFragment StoreEntitySet="sysdiagrams">
           <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -86,7 +86,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="UserRoleMapping">
-      <EntityTypeMapping TypeName="dataModel.UserRoleMapping">
+      <EntityTypeMapping TypeName="projeDataModel.UserRoleMapping">
         <MappingFragment StoreEntitySet="UserRoleMapping">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -95,7 +95,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Users_Tablo">
-      <EntityTypeMapping TypeName="dataModel.Users_Tablo">
+      <EntityTypeMapping TypeName="projeDataModel.Users_Tablo">
         <MappingFragment StoreEntitySet="Users_Tablo">
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />
@@ -107,7 +107,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="ShowCars">
-      <EntityTypeMapping TypeName="dataModel.ShowCars">
+      <EntityTypeMapping TypeName="projeDataModel.ShowCars">
         <MappingFragment StoreEntitySet="ShowCars">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="ModelName" ColumnName="ModelName" />
@@ -117,5 +117,77 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="TodaysOrders">
+      <EntityTypeMapping TypeName="projeDataModel.TodaysOrders">
+        <MappingFragment StoreEntitySet="TodaysOrders">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="MusteriAdi" ColumnName="MusteriAdi" />
+          <ScalarProperty Name="ArabaninMarkasi" ColumnName="ArabaninMarkasi" />
+          <ScalarProperty Name="ArabaninModeli" ColumnName="ArabaninModeli" />
+          <ScalarProperty Name="ArabaninFiyati" ColumnName="ArabaninFiyati" />
+          <ScalarProperty Name="SiparisKodu" ColumnName="SiparisKodu" />
+          <ScalarProperty Name="SatinAlmaZamani" ColumnName="SatinAlmaZamani" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionName="projeDataModel.Store.getModelNameWithCarId" FunctionImportName="getModelNameWithCarId">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="projeDataModel.getModelNameWithCarId_Result">
+          <ScalarProperty Name="MarkaName" ColumnName="MarkaName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionName="projeDataModel.Store.yetkiBul" FunctionImportName="yetkiBul">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="projeDataModel.yetkiBul_Result">
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="siparisBul" FunctionName="projeDataModel.Store.siparisBul">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="projeDataModel.siparisBul_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="MusteriAdi" ColumnName="MusteriAdi" />
+          <ScalarProperty Name="ArabaninMarkasi" ColumnName="ArabaninMarkasi" />
+          <ScalarProperty Name="ArabaninModeli" ColumnName="ArabaninModeli" />
+          <ScalarProperty Name="ArabaninFiyati" ColumnName="ArabaninFiyati" />
+          <ScalarProperty Name="SiparisKodu" ColumnName="SiparisKodu" />
+          <ScalarProperty Name="SatinAlmaZamani" ColumnName="SatinAlmaZamani" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sonSatinAlinanlar" FunctionName="projeDataModel.Store.sonSatinAlinanlar">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="projeDataModel.sonSatinAlinanlar_Result">
+          <ScalarProperty Name="MusteriAdi" ColumnName="MusteriAdi" />
+          <ScalarProperty Name="adetSayisi" ColumnName="adetSayisi" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="projeDataModel.Store.sp_alterdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="projeDataModel.Store.sp_creatediagram" />
+    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="projeDataModel.Store.sp_dropdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="projeDataModel.Store.sp_helpdiagramdefinition">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="projeDataModel.sp_helpdiagramdefinition_Result">
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="projeDataModel.Store.sp_helpdiagrams">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="projeDataModel.sp_helpdiagrams_Result">
+          <ScalarProperty Name="Database" ColumnName="Database" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="projeDataModel.Store.sp_renamediagram" />
+    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="projeDataModel.Store.sp_upgraddiagrams" />
   </EntityContainerMapping>
 </Mapping>

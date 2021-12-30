@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="dataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="projeDataModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="BlokZinciri">
     <Key>
       <PropertyRef Name="BlockId" />
@@ -96,7 +96,18 @@
     <Property Name="UserRoleId" Type="int" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view '1702data.dbo.ShowCars' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6013: The table/view 'projeData.dbo.MarkaModelSayisi1DenFazla' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="MarkaModelSayisi1DenFazla">
+          <Property Name="MarkaName" Type="varchar" MaxLength="50" />
+          <Property Name="adet" Type="int" />
+        </EntityType>-->
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'projeData.dbo.ReturnUserRoleWithUserName' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="ReturnUserRoleWithUserName">
+          <Property Name="RoleName" Type="varchar" MaxLength="50" />
+        </EntityType>-->
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'projeData.dbo.ShowCars' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ShowCars">
     <Key>
       <PropertyRef Name="ID" />
@@ -106,6 +117,20 @@ warning 6002: The table/view '1702data.dbo.ShowCars' does not have a primary key
     <Property Name="MarkaName" Type="varchar" MaxLength="50" />
     <Property Name="CarFiyat" Type="money" />
     <Property Name="CarPhoto" Type="varchar(max)" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'projeData.dbo.TodaysOrders' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="TodaysOrders">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MusteriAdi" Type="varchar" MaxLength="50" />
+    <Property Name="ArabaninMarkasi" Type="varchar" MaxLength="50" />
+    <Property Name="ArabaninModeli" Type="varchar" MaxLength="50" />
+    <Property Name="ArabaninFiyati" Type="int" />
+    <Property Name="SiparisKodu" Type="int" />
+    <Property Name="SatinAlmaZamani" Type="datetime" />
   </EntityType>
   <Association Name="FK_Car_Tablo_CarModelMarkaMapping">
     <End Role="CarModelMarkaMapping" Type="Self.CarModelMarkaMapping" Multiplicity="0..1" />
@@ -179,7 +204,62 @@ warning 6002: The table/view '1702data.dbo.ShowCars' does not have a primary key
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="dataModelStoreContainer">
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="getModelNameWithCarId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="carkod" Type="int" Mode="In" />
+    <ReturnType>
+      <CollectionType>
+        <RowType>
+          <Property Name="MarkaName" Type="varchar" MaxLength="50" />
+        </RowType>
+      </CollectionType>
+    </ReturnType>
+  </Function>
+  <Function Name="siparisBul" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="sipariskod" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sonSatinAlinanlar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="yetkiBul" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="userId" Type="int" Mode="In" />
+    <ReturnType>
+      <CollectionType>
+        <RowType>
+          <Property Name="RoleName" Type="varchar" MaxLength="50" />
+        </RowType>
+      </CollectionType>
+    </ReturnType>
+  </Function>
+  <EntityContainer Name="projeDataModelStoreContainer">
     <EntitySet Name="BlokZinciri" EntityType="Self.BlokZinciri" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Car_Tablo" EntityType="Self.Car_Tablo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CarModelMarkaMapping" EntityType="Self.CarModelMarkaMapping" Schema="dbo" store:Type="Tables" />
@@ -198,6 +278,17 @@ warning 6002: The table/view '1702data.dbo.ShowCars' does not have a primary key
     [ShowCars].[CarFiyat] AS [CarFiyat], 
     [ShowCars].[CarPhoto] AS [CarPhoto]
     FROM [dbo].[ShowCars] AS [ShowCars]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="TodaysOrders" EntityType="Self.TodaysOrders" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [TodaysOrders].[Id] AS [Id], 
+    [TodaysOrders].[MusteriAdi] AS [MusteriAdi], 
+    [TodaysOrders].[ArabaninMarkasi] AS [ArabaninMarkasi], 
+    [TodaysOrders].[ArabaninModeli] AS [ArabaninModeli], 
+    [TodaysOrders].[ArabaninFiyati] AS [ArabaninFiyati], 
+    [TodaysOrders].[SiparisKodu] AS [SiparisKodu], 
+    [TodaysOrders].[SatinAlmaZamani] AS [SatinAlmaZamani]
+    FROM [dbo].[TodaysOrders] AS [TodaysOrders]</DefiningQuery>
     </EntitySet>
     <AssociationSet Name="FK_Car_Tablo_CarModelMarkaMapping" Association="Self.FK_Car_Tablo_CarModelMarkaMapping">
       <End Role="CarModelMarkaMapping" EntitySet="CarModelMarkaMapping" />
