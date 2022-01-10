@@ -16,7 +16,7 @@ namespace artiktamam.Controllers
     [Authorize(Roles ="admin")]
     public class AdminController : Controller
     {
-        private hackathonProjeEntities db = new hackathonProjeEntities();
+        private masterEntities db = new masterEntities();
         private DatabaseIslemleri dbIslem = new DatabaseIslemleri();
         SatinalinanlisteleViewModel model = new SatinalinanlisteleViewModel();
         // GET: admin

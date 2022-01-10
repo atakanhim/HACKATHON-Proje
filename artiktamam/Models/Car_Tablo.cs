@@ -15,10 +15,12 @@ namespace artiktamam.Models
     public partial class Car_Tablo
     {
         public int CarId { get; set; }
-        public Nullable<int> CarKod { get; set; }
+        public Nullable<int> CarMarkaKod { get; set; }
+        public Nullable<int> CarModelKod { get; set; }
         public Nullable<decimal> CarFiyat { get; set; }
         public string CarPhoto { get; set; }
     
-        public virtual CarModelMarkaMapping CarModelMarkaMapping { get; set; }
+        public virtual Marka_Tablo Marka_Tablo { get; set; }
+        public virtual Model_Table Model_Table { get; set; }
     }
 }

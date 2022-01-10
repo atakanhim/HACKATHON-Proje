@@ -38,7 +38,7 @@ namespace artiktamam.Security
 
         public override string[] GetRolesForUser(string username)
         {
-            using (hackathonProjeEntities db = new hackathonProjeEntities())
+            using (masterEntities db = new masterEntities())
             {
 
                 var userRoles = (from user in db.Users_Tablo
