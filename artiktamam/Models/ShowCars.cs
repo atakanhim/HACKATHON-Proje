@@ -15,8 +15,8 @@ namespace artiktamam.Models
     public partial class ShowCars
     {
         public int ID { get; set; }
-        public string MarkaName { get; set; }
         public string ModelName { get; set; }
+        public string MarkaName { get; set; }
         public Nullable<decimal> CarFiyat { get; set; }
         public string CarPhoto { get; set; }
     }

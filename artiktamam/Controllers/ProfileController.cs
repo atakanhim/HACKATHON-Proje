@@ -15,7 +15,7 @@ namespace artiktamam.Controllers
     [Authorize(Roles = "kullanici")]
     public class ProfileController : Controller
     {
-        private masterEntities db = new masterEntities();
+        private projeDataEntities1 db = new projeDataEntities1();
         private DatabaseIslemleri dbIslem = new DatabaseIslemleri();
 
         // GET: Users_Tablo/Edit/5

@@ -9,7 +9,7 @@ namespace artiktamam.Controllers
 {
     public class LoginController : Controller
     {
-        private masterEntities dbIslem = new masterEntities();
+        private DatabaseIslemleri dbIslem = new DatabaseIslemleri();
         // GET: Login
         public ActionResult Index()
         {

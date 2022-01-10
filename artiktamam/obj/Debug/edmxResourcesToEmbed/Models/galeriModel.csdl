@@ -207,7 +207,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="hackathonProjeEntities" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="projeDataEntities1" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="BlokZinciri" EntityType="Self.BlokZinciri" />
     <EntitySet Name="Car_Tablo" EntityType="Self.Car_Tablo" />
     <EntitySet Name="CarModelMarkaMapping" EntityType="Self.CarModelMarkaMapping" />

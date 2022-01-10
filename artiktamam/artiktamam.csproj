@@ -139,44 +139,80 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\BlokZinciri.cs">
+      <DependentUpon>galeriModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CarModelMarkaMapping.cs">
+      <DependentUpon>galeriModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Car_Tablo.cs">
+      <DependentUpon>galeriModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DatabaseViews.cs" />
+    <Compile Include="Models\galeriModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>galeriModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\galeriModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>galeriModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\galeriModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>galeriModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\getModelNameWithCarId_Result.cs">
+      <DependentUpon>galeriModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
-    <Compile Include="Models\Model1.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.Context.tt</DependentUpon>
+    <Compile Include="Models\Marka_Tablo.cs">
+      <DependentUpon>galeriModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Model1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Model1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\MSreplication_options.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+    <Compile Include="Models\Model_Table.cs">
+      <DependentUpon>galeriModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Register.cs" />
+    <Compile Include="Models\Roles_Tablo.cs">
+      <DependentUpon>galeriModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SatinalinanlisteleViewModel.cs" />
     <Compile Include="Models\SatinalmaGecmisi.cs" />
-    <Compile Include="Models\spt_fallback_db.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+    <Compile Include="Models\SatinalmaGecmisi_Table.cs">
+      <DependentUpon>galeriModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\spt_fallback_dev.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+    <Compile Include="Models\ShowCars.cs">
+      <DependentUpon>galeriModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\spt_fallback_usg.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+    <Compile Include="Models\siparisBul_Result.cs">
+      <DependentUpon>galeriModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\spt_monitor.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+    <Compile Include="Models\sonSatinAlinanlar_Result.cs">
+      <DependentUpon>galeriModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\spt_values.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>galeriModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagrams_Result.cs">
+      <DependentUpon>galeriModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagrams.cs">
+      <DependentUpon>galeriModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TodaysOrders.cs">
+      <DependentUpon>galeriModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserRoleMapping.cs">
+      <DependentUpon>galeriModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Users_Tablo.cs">
+      <DependentUpon>galeriModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\yetkiBul_Result.cs">
+      <DependentUpon>galeriModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\PersonelRoleProvider.cs" />
@@ -192,25 +228,25 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\Model1.Context.tt">
+    <Content Include="Models\galeriModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+      <DependentUpon>galeriModel.edmx</DependentUpon>
+      <LastGenOutput>galeriModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\Model1.tt">
+    <Content Include="Models\galeriModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <LastGenOutput>Model1.cs</LastGenOutput>
+      <DependentUpon>galeriModel.edmx</DependentUpon>
+      <LastGenOutput>galeriModel.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\Login.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\Model1.edmx">
+    <EntityDeploy Include="Models\galeriModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+      <LastGenOutput>galeriModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
+    <Content Include="Models\galeriModel.edmx.diagram">
+      <DependentUpon>galeriModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />

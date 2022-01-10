@@ -16,7 +16,7 @@ namespace artiktamam.Controllers
     [Authorize(Roles ="admin")]
     public class AdminController : Controller
     {
-        private masterEntities db = new masterEntities();
+        private projeDataEntities1 db = new projeDataEntities1();
         private DatabaseIslemleri dbIslem = new DatabaseIslemleri();
         SatinalinanlisteleViewModel model = new SatinalinanlisteleViewModel();
         // GET: admin
@@ -124,6 +124,7 @@ namespace artiktamam.Controllers
             int roleId = dbIslem.getMapRoleId(id);
             UserRoleMapping roleMapping = db.UserRoleMapping.Find(roleId);
             db.Users_Tablo.Remove(users_Tablo);
+            db.SaveChanges();
             db.UserRoleMapping.Remove(roleMapping);
             db.SaveChanges();
             return RedirectToAction("Index");

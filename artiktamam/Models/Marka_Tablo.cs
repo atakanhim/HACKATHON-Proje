@@ -17,15 +17,12 @@ namespace artiktamam.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Marka_Tablo()
         {
-            this.Car_Tablo = new HashSet<Car_Tablo>();
             this.Model_Table = new HashSet<Model_Table>();
         }
     
         public int MarkaKod { get; set; }
         public string MarkaName { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Car_Tablo> Car_Tablo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Model_Table> Model_Table { get; set; }
     }

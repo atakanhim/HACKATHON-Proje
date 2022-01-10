@@ -17,7 +17,7 @@ namespace artiktamam.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Model_Table()
         {
-            this.Car_Tablo = new HashSet<Car_Tablo>();
+            this.CarModelMarkaMapping = new HashSet<CarModelMarkaMapping>();
         }
     
         public int ModelKod { get; set; }
@@ -25,7 +25,7 @@ namespace artiktamam.Models
         public string ModelName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Car_Tablo> Car_Tablo { get; set; }
+        public virtual ICollection<CarModelMarkaMapping> CarModelMarkaMapping { get; set; }
         public virtual Marka_Tablo Marka_Tablo { get; set; }
     }
 }
